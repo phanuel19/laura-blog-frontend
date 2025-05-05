@@ -1,23 +1,34 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import About from "../pages/About";
-import Blog from "../pages/Blog";
-import Contact from "../pages/Contact";
-import Home from "../pages/Home";
-import NotFound from "../pages/NotFound";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import Navbar from "../components/global/navbar";
+import Admin from "../pages/Admin/Admin";
+import Articles from "../pages/Articles/Articles";
+import Contact from "../pages/Contact/Contact";
+import Dontation from "../pages/Donation/Donation";
+import Home from "../pages/Home/Home";
+import Videos from "../pages/Videos/Videos";
 
-const AppRoutes = () => {
+const router = createBrowserRouter([
+  { path: "/", element: <Home /> },
+  { path: "/videos", element: <Videos /> },
+  { path: "/articles", element: <Articles /> },
+  { path: "/donation", element: <Dontation /> },
+  { path: "/contact", element: <Contact /> },
+  { path: "/admin", element: <Admin /> },
+]);
+
+const Routes = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+    <>
+      <Navbar />
+      <div className="container">
+        <div className="container__content">
+          <RouterProvider router={router} />
+        </div>
+        <div className="container__footer">Footer</div>
+      </div>
+    </>
   );
 };
 
-export default AppRoutes;
+export default Routes;
