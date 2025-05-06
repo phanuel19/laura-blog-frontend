@@ -7,6 +7,7 @@ import Contact from "../pages/Contact/Contact";
 import Dontation from "../pages/Donation/Donation";
 import Home from "../pages/Home/Home";
 import Videos from "../pages/Videos/Videos";
+import Footer from "../components/global/footer";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -25,8 +26,8 @@ const Routes = () => {
         <div className="container__content">
           <RouterProvider router={router} />
         </div>
-        <div className="container__footer">Footer</div>
       </div>
+      <Footer />
     </>
   );
 };
