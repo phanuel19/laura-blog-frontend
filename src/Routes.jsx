@@ -1,13 +1,13 @@
-import Footer from "components/global/footer";
-import Navbar from "components/global/Navbar";
-import Admin from "pages/Admin/Admin";
-import Articles from "pages/Articles/Articles";
-import Contact from "pages/Contact/Contact";
-import Dontation from "pages/Donation/Donation";
-import Home from "pages/Home/Home";
-import Videos from "pages/Videos/Videos";
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import Footer from "./components/global/Footer";
+import Navbar from "./components/global/navbar";
+import Admin from "./pages/Admin/Admin";
+import Articles from "./pages/Articles/Articles";
+import Contact from "./pages/Contact/Contact";
+import Dontation from "./pages/Donation/Donation";
+import Home from "./pages/Home/Home";
+import Videos from "./pages/Videos/Videos";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
