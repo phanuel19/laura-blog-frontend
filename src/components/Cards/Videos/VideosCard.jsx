@@ -1,29 +1,54 @@
+import { CalendarDays, Tag, User } from "lucide-react";
 import React from "react";
 
-function VideosCard({ key }) {
+export default function VideosCard({ video, onClick }) {
   return (
-    <div key={key} className=" text-justify">
-      <div className="h-55 bg-gray-100 shadow-sm mb-4 rounded-xl border p-4 " />
-      {/* <p className="text-sm font-medium text-gray-700">Loki Bright</p> */}
-      <h3 className="font-semibold mt-2">
-        A short title that engages our visitors
-      </h3>
-      <p className="text-sm text-gray-500 mt-2 align-justify ">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-        dicta ipsam dolorum et. Quaerat deserunt, maiores itaque laboriosam iste
-        atque accusamus quo cupiditate sit omnis obcaecati explicabo rerum.
-        Quaerat, quasi.
-      </p>
-      <div className="flex gap-2 text-xs text-gray-400 mt-2">
-        <span className="rounded-lg border px-1.5 py-0.5">adventure</span>
-        <span className="rounded-lg border px-1.5 py-0.5">hotels</span>
+    <div
+      onClick={onClick}
+      className="cursor-pointer border rounded-lg overflow-hidden shadow-sm bg-white transition hover:shadow-md"
+    >
+      <div className="w-full h-40 bg-gray-200 flex items-center justify-center">
+        <img
+          src={video.thumbnail}
+          alt={video.title}
+          className="object-cover w-full h-full"
+        />
       </div>
-      <div className="flex justify-between items-center mt-4">
-        <span className="text-xs text-gray-400 mt-2">Oct 19, 2023 </span>
-        <span className="text-xs text-gray-400 float-right">12 min </span>
+
+      <div className="p-4 space-y-2 text-left">
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <User className="w-4 h-4" />
+          <span>{video.author || "Auteur inconnu"}</span>
+        </div>
+
+        <h3 className="text-lg font-semibold text-gray-800">{video.title}</h3>
+
+        <p className="text-sm text-gray-600 line-clamp-2">
+          {video.description || "Pas de description disponible."}
+        </p>
+
+        <div className="flex gap-2 flex-wrap text-xs">
+          {video.categories.map((cat) => (
+            <span
+              key={cat}
+              className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full"
+            >
+              {cat}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex justify-between text-xs text-gray-500 pt-2">
+          <div className="flex items-center gap-1">
+            <CalendarDays className="w-4 h-4" />
+            <span>{video.date || "Inconnue"}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <Tag className="w-4 h-4" />
+            <span>{video.category || "Divers"}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
-export default VideosCard;
