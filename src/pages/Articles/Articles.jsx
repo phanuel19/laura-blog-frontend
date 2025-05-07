@@ -9,7 +9,7 @@ export default function Articles() {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [currentArticle, setCurrentArticle] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const articlesPerPage = 12;
+  const articlesPerPage = 9;
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * sampleArticles.length);

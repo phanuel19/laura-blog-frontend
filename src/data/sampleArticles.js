@@ -1,72 +1,234 @@
 export const sampleArticles = [
   {
-    id: 1,
-    title: "La Dépression lorsqu'on est jeune",
-    subtitle:
-      "Article pour vous parler de la dépression, un phénomène plus ou moins destructeur chez les jeunes en Côte d'Ivoire",
-    image:
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-    author: "Dr. Amani Koné",
-    date: "04/05/2025",
-    categories: ["Santé", "Psychologie", "Jeunesse"],
-    content: `La dépression est un silence lourd qui s'installe sans prévenir.
-Ce n'est pas juste de la tristesse...
-Les nuits sont agitées, peuplées de pensées envahissantes...
-Et même dans l'obscurité la plus totale, une petite lumière peut suffire à montrer le chemin.`,
+    id: 9,
+    title: "La méditation pour débutants",
+    description: "Guide pratique pour commencer la méditation au quotidien.",
+    image: "https://images.unsplash.com/photo-1530099486328-e021101a494a",
+    author: "Noah Williams",
+    date: "2024-03-12",
+    categories: ["Bien-être", "Spiritualité"],
+    content:
+      "La méditation est une pratique accessible à tous qui ne nécessite aucun équipement particulier. Commencez par seulement 5 minutes par jour, assis confortablement en vous concentrant sur votre respiration. L'important n'est pas d'arrêter les pensées mais de les observer sans jugement. Avec le temps, vous pourrez augmenter progressivement la durée de vos sessions.",
   },
   {
-    id: 2,
-    title: "L'Anxiété chez les étudiants",
-    subtitle:
-      "Comprendre et surmonter le stress académique en Afrique de l'Ouest",
-    image:
-      "https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-    author: "Fatou Diabaté",
-    date: "15/05/2025",
-    categories: ["Santé mentale", "Éducation"],
-    content: `Les salles d'examen deviennent des arènes de peur...
-Le poids des attentes familiales écrase plus que les livres...
-Mais chaque respiration profonde est une arme contre ce fléau moderne.`,
+    id: 10,
+    title: "Le pouvoir des petites habitudes",
+    description:
+      "Comment des changements infimes peuvent transformer votre vie.",
+    image: "https://images.unsplash.com/photo-1544717305-2782549b5136",
+    author: "James Clear",
+    date: "2024-02-28",
+    categories: ["Développement personnel", "Productivité"],
+    content:
+      "Les habitudes minuscules ont un pouvoir disproportionné car elles sont faciles à maintenir et s'accumulent avec le temps. Commencez par des actions si petites qu'elles semblent ridicules, comme faire 2 pompes par jour ou lire une page chaque soir. La clé est la régularité, pas l'intensité. Ces petites victoires créent un élan psychologique qui mène à des changements durables.",
   },
   {
-    id: 3,
-    title: "Le Burnout parental",
-    subtitle: "Quand élever ses enfants devient un marathon épuisant",
-    image:
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-    author: "Lamine Traoré",
-    date: "22/05/2025",
-    categories: ["Famille", "Santé"],
-    content: `Entre le travail et les responsabilités familiales, beaucoup de parents s'oublient...
-Les nuits courtes s'accumulent comme des dettes de sommeil...
-Reconnaître ses limites n'est pas un échec, mais un acte de courage parental.`,
+    id: 11,
+    title: "Dormir pour mieux réussir",
+    description: "L'impact du sommeil sur votre productivité et bien-être.",
+    image: "https://images.unsplash.com/photo-1531353826977-0941b4779a1c",
+    author: "Matthew Walker",
+    date: "2024-01-15",
+    categories: ["Santé", "Productivité"],
+    content:
+      "Un sommeil de qualité est le fondement d'une vie productive et équilibrée. Pour améliorer votre sommeil, établissez une routine régulière, évitez les écrans avant de dormir et maintenez votre chambre fraîche et sombre. La privation de sommeil affecte négativement la mémoire, la créativité et la santé immunitaire. Considérez le sommeil comme un investissement dans votre réussite.",
   },
   {
-    id: 4,
-    title: "La Cyberdépendance juvénile",
-    subtitle:
-      "Quand les écrans deviennent une prison numérique pour nos adolescents",
-    image:
-      "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-    author: "Awa Bamba",
-    date: "30/05/2025",
-    categories: ["Technologie", "Jeunesse"],
-    content: `Les notifications sont devenues des chaînes dorées...
-Le monde réel semble pâle comparé aux vies curatées des réseaux...
-Pourtant, chaque minute hors écran est une reconquête de sa propre attention.`,
+    id: 12,
+    title: "L'alimentation intuitive",
+    description: "Retrouver une relation saine avec la nourriture.",
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061",
+    author: "Evelyn Tribole",
+    date: "2023-12-05",
+    categories: ["Santé", "Bien-être"],
+    content:
+      "L'alimentation intuitive consiste à écouter les signaux de son corps plutôt que de suivre des régimes restrictifs. Mangez quand vous avez faim, arrêtez-vous quand vous êtes rassasié et choisissez des aliments qui vous font du bien. Cette approche réduit l'anxiété alimentaire et favorise un poids stable naturellement. C'est une reconnexion avec la sagesse innée de votre corps.",
   },
   {
-    id: 5,
-    title: "Trauma et résilience",
-    subtitle:
-      "Comment les jeunes Africains transforment leurs blessures en force",
-    image:
-      "https://images.unsplash.com/photo-1491841573635-49f3530cb6f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-    author: "Dr. Kwame Johnson",
-    date: "07/06/2025",
-    categories: ["Psychologie", "Développement"],
-    content: `Les cicatrices psychiques sont souvent invisibles...
-Mais dans les cendres des expériences douloureuses, poussent des racines de résilience...
-Votre histoire n'est pas une prison, mais un tremplin que vous apprenez à utiliser.`,
+    id: 13,
+    title: "Le minimalisme digital",
+    description: "Retrouver du temps et de la clarté mentale.",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+    author: "Cal Newport",
+    date: "2023-11-20",
+    categories: ["Productivité", "Technologie"],
+    content:
+      "Le minimalisme digital propose une utilisation intentionnelle des technologies. Désencombrez vos appareils, désabonnez-vous des notifications inutiles et réservez des plages sans écran. En réduisant le bruit numérique, vous gagnez en concentration, en temps libre et en qualité de présence avec vos proches. La technologie devrait servir vos valeurs, pas les compromettre.",
+  },
+  {
+    id: 14,
+    title: "Résilience : rebondir après l'échec",
+    description: "Développer la force mentale face aux défis.",
+    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773",
+    author: "Angela Duckworth",
+    date: "2023-10-10",
+    categories: ["Psychologie", "Développement personnel"],
+    content:
+      "La résilience n'est pas une qualité innée mais une compétence qui se développe. Après un échec, permettez-vous de ressentir les émotions puis analysez objectivement ce qui n'a pas fonctionné. Identifiez les leçons apprises et ajustez votre approche. Chaque obstacle surmonté renforce votre capacité à faire face aux défis futurs. La persévérance est souvent la différence entre l'échec et le succès.",
+  },
+  {
+    id: 15,
+    title: "Le langage corporel de la confiance",
+    description: "Communiquer assurance et crédibilité sans parler.",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978",
+    author: "Amy Cuddy",
+    date: "2023-09-18",
+    categories: ["Communication", "Développement personnel"],
+    content:
+      "Votre posture influence autant votre mental que la perception des autres. Adoptez une position ouverte, tenez-vous droit et maintenez un contact visuel modéré. Évitez de croiser les bras ou de jouer avec vos mains. Ces ajustements simples peuvent augmenter votre sentiment de confiance et votre charisme. Pratiquez devant un miroir jusqu'à ce que ces gestes deviennent naturels.",
+  },
+  {
+    id: 16,
+    title: "L'art de la conversation profonde",
+    description: "Créer des liens authentiques par l'écoute active.",
+    image: "https://images.unsplash.com/photo-1541178735493-479c1a27ed24",
+    author: "Celeste Headlee",
+    date: "2023-08-22",
+    categories: ["Communication", "Relations"],
+    content:
+      "Les conversations significatives commencent par une écoute véritable. Posez des questions ouvertes, évitez d'interrompre et ne préparez pas votre réponse pendant que l'autre parle. Montrez de l'intérêt par des hochements de tête et des reformulations. Laissez tomber votre agenda et soyez pleinement présent. Ces échanges nourrissent les relations bien plus que les discussions superficielles.",
+  },
+  {
+    id: 17,
+    title: "Finances personnelles sereines",
+    description: "Les bases pour une relation apaisée avec l'argent.",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f",
+    author: "Morgan Housel",
+    date: "2023-07-30",
+    categories: ["Finance", "Bien-être"],
+    content:
+      "Une gestion financière saine commence par comprendre vos flux d'argent. Suivez vos dépenses pendant un mois, créez un budget réaliste et épargnez avant de dépenser. Concentrez-vous sur ce que vous contrôlez : vos dépenses, votre épargne et vos investissements à long terme. La richesse véritable est la liberté que l'argent peut acheter, pas le statut qu'il représente.",
+  },
+  {
+    id: 18,
+    title: "Créativité au quotidien",
+    description: "Stimuler votre esprit créatif dans la vie de tous les jours.",
+    image: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    author: "Julia Cameron",
+    date: "2023-06-14",
+    categories: ["Créativité", "Développement personnel"],
+    content:
+      "La créativité est un muscle qui se développe par la pratique régulière. Tenez un journal matinal, promenez-vous sans destination ou essayez une nouvelle activité artistique. Observez le monde avec curiosité et questionnez les évidences. Les idées surgissent quand on leur fait de la place. N'attendez pas l'inspiration, cultivez-la activement chaque jour.",
+  },
+  {
+    id: 19,
+    title: "Parentalité bienveillante",
+    description: "Élever des enfants épanouis dans un cadre structurant.",
+    image: "https://images.unsplash.com/photo-1529257414772-1960b7bea4eb",
+    author: "Isabelle Filliozat",
+    date: "2023-05-09",
+    categories: ["Famille", "Psychologie"],
+    content:
+      "La parentalité bienveillante allie empathie et limites claires. Validez les émotions de l'enfant tout en maintenant des règles cohérentes. Privilégiez la connexion avant la correction et montrez l'exemple par votre propre comportement. Cette approche favorise l'autonomie, l'estime de soi et la coopération. Rappelez-vous qu'il n'existe pas de parents parfaits, seulement des parents assez bons.",
+  },
+  {
+    id: 20,
+    title: "Le pouvoir du matin",
+    description: "Transformer vos matinées pour transformer votre vie.",
+    image: "https://images.unsplash.com/photo-1498753427761-548428edfa67",
+    author: "Hal Elrod",
+    date: "2023-04-03",
+    categories: ["Productivité", "Développement personnel"],
+    content:
+      "Une routine matinale efficace donne le ton à votre journée. Réveillez-vous une heure plus tôt pour méditer, lire, faire de l'exercice ou planifier votre journée. Évitez de consulter votre téléphone immédiatement. Ces moments calmes avant le rush quotidien augmentent votre productivité et votre sérénité. Ce que vous faites le matin influence considérablement le reste de votre journée.",
+  },
+  {
+    id: 21,
+    title: "L'intelligence émotionnelle au travail",
+    description: "Développer son QE pour réussir professionnellement.",
+    image: "https://images.unsplash.com/photo-1521791136064-7986c2920216",
+    author: "Daniel Goleman",
+    date: "2023-03-15",
+    categories: ["Travail", "Psychologie"],
+    content:
+      "L'intelligence émotionnelle est souvent plus déterminante que le QI dans la réussite professionnelle. Pratiquez l'auto-régulation, cultivez l'empathie et gérez les conflits avec diplomatie. Reconnaissez vos émotions sans vous laisser submerger. Ces compétences améliorent le leadership, la collaboration et la prise de décision. Dans un monde automatisé, le QE devient un avantage compétitif majeur.",
+  },
+  {
+    id: 22,
+    title: "Voyager seul(e)",
+    description: "Les leçons de vie qu'on apprend en voyageant en solo.",
+    image: "https://images.unsplash.com/photo-1503917988258-f87a78e3c995",
+    author: "Rolf Potts",
+    date: "2023-02-08",
+    categories: ["Voyage", "Développement personnel"],
+    content:
+      "Voyager seul est une expérience transformative qui renforce l'autonomie et la confiance en soi. Vous apprenez à résoudre des problèmes, à nouer des contacts et à apprécier votre propre compagnie. Commencez par des destinations accessibles et préparez un plan de base tout en laissant place à l'improvisation. Ces voyages vous confrontent à vous-même et élargissent votre vision du monde de manière unique.",
+  },
+  {
+    id: 23,
+    title: "Le sport comme thérapie",
+    description: "Comment l'activité physique améliore la santé mentale.",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
+    author: "Kelly McGonigal",
+    date: "2023-01-12",
+    categories: ["Santé", "Bien-être"],
+    content:
+      "L'exercice physique est un antidépresseur naturel qui réduit le stress et améliore l'humeur. Trouvez une activité que vous aimez, même modérée comme la marche, et pratiquez-la régulièrement. L'important est la constance plus que l'intensité. Le sport stimule la production d'endorphines et favorise un meilleur sommeil. Considérez chaque séance comme un cadeau à votre futur soi.",
+  },
+  {
+    id: 24,
+    title: "Apprendre à apprendre",
+    description: "Techniques pour maîtriser n'importe quelle compétence.",
+    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b",
+    author: "Barbara Oakley",
+    date: "2022-12-05",
+    categories: ["Éducation", "Développement personnel"],
+    content:
+      "L'apprentissage efficace repose sur des méthodes éprouvées. Alternez entre focus intense et pauses, pratiquez la récupération active et faites des liens entre les concepts. Acceptez la difficulté comme partie normale du processus. En comprenant comment votre cerveau apprend, vous pouvez acquérir de nouvelles compétences plus rapidement et plus durablement. La maîtrise vient de la pratique délibérée, pas seulement du temps passé.",
+  },
+  {
+    id: 25,
+    title: "Le jeûne intermittent",
+    description: "Les bienfaits d'une alimentation cyclique sur la santé.",
+    image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352",
+    author: "Jason Fung",
+    date: "2022-11-18",
+    categories: ["Santé", "Nutrition"],
+    content:
+      "Le jeûne intermittent consiste à alterner périodes de repas et d'abstinence alimentaire. Commencez par un jeûne de 12 heures (incluant le sommeil) puis augmentez progressivement. Cette pratique peut améliorer la sensibilité à l'insuline, favoriser la perte de graisse et stimuler l'autophagie cellulaire. Consultez un professionnel de santé avant de commencer, surtout si vous avez des conditions médicales.",
+  },
+  {
+    id: 26,
+    title: "L'ikigai : trouver sa raison d'être",
+    description: "La philosophie japonaise pour une vie pleine de sens.",
+    image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643",
+    author: "Héctor García",
+    date: "2022-10-22",
+    categories: ["Bien-être", "Philosophie"],
+    content:
+      "L'ikigai est ce qui vous fait vous lever le matin avec joie. Pour le découvrir, explorez ce que vous aimez, ce en quoi vous êtes bon, ce dont le monde a besoin et ce pour quoi vous pouvez être payé. À l'intersection de ces quatre éléments se trouve votre raison d'être. Vivre selon son ikigai apporte satisfaction et longévité, comme le montrent les centenaires d'Okinawa qui pratiquent cette philosophie.",
+  },
+  {
+    id: 27,
+    title: "Le paradoxe du choix",
+    description: "Pourquoi moins d'options peut mener à plus de satisfaction.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    author: "Barry Schwartz",
+    date: "2022-09-14",
+    categories: ["Psychologie", "Philosophie"],
+    content:
+      "Dans nos sociétés d'abondance, trop de choix peut paralyser et insatisfaire. Apprenez à être un 'satisficeur' plutôt qu'un 'maximiseur' - cherchez ce qui est 'assez bon' plutôt que le meilleur absolu. Établissez des critères clairs avant de choisir et acceptez qu'aucune option ne soit parfaite. Simplifiez vos décisions pour gagner en temps et en sérénité.",
+  },
+  {
+    id: 28,
+    title: "La communication non violente",
+    description: "Exprimer ses besoins sans créer de conflit.",
+    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad",
+    author: "Marshall Rosenberg",
+    date: "2022-08-07",
+    categories: ["Communication", "Relations"],
+    content:
+      "La CNV propose un cadre en 4 étapes : observation sans jugement, expression des sentiments, identification des besoins, formulation de demandes claires. Par exemple : 'Quand je vois la vaisselle dans l'évier (observation), je me sens frustré (sentiment) car j'ai besoin de coopération (besoin). Serais-tu d'accord pour la faire avant 20h ? (demande)'. Cette méthode transforme les conflits en dialogues constructifs.",
+  },
+  {
+    id: 29,
+    title: "Le flow : l'état optimal d'expérience",
+    description: "Comment atteindre cet état de concentration absolue.",
+    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+    author: "Marshall Rosenberg",
+    date: "2022-08-07",
+    categories: ["Communication", "Relations"],
+    content:
+      "La CNV propose un cadre en 4 étapes : observation sans jugement, expression des sentiments, identification des besoins, formulation de demandes claires. Par exemple : 'Quand je vois la vaisselle dans l'évier (observation), je me sens frustré (sentiment) car j'ai besoin de coopération (besoin). Serais-tu d'accord pour la faire avant 20h ? (demande)'. Cette méthode transforme les conflits en dialogues constructifs.",
   },
 ];
