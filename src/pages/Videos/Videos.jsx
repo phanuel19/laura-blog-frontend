@@ -1,39 +1,33 @@
-import React, { useEffect, useState } from "react";
-import ArticleCard from "../../components/Cards/Article/ArticleCard";
-import ArticleView from "../../components/Cards/Article/ArticleView";
-import { sampleArticles } from "../../data/sampleArticles";
+import React, { useState } from "react";
+import VideosCard from "../../components/Cards/Videos/VideosCard";
+import VideoView from "../../components/Cards/Videos/VideoView";
+import { sampleVideos } from "../../data/sampleVideos";
 
-export default function Articles() {
+export default function Videos() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Tous");
-  const [selectedArticle, setSelectedArticle] = useState(null);
-  const [currentArticle, setCurrentArticle] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const articlesPerPage = 12;
+  const articlesPerPage = 9;
 
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * sampleArticles.length);
-    setCurrentArticle(sampleArticles[randomIndex]);
-  }, []);
+  const categories = [
+    "Tous",
+    ...new Set(sampleVideos.flatMap((v) => v.categories)),
+  ];
 
-  const filteredArticles = sampleArticles.filter((article) => {
+  const filteredVideos = sampleVideos.filter((video) => {
     const matchCategory =
       selectedCategory === "Tous" ||
-      article.categories.includes(selectedCategory);
-    const matchSearch = article.title
+      video.categories.includes(selectedCategory);
+    const matchSearch = video.title
       .toLowerCase()
       .includes(search.toLowerCase());
     return matchCategory && matchSearch;
   });
 
-  const categories = [
-    "Tous",
-    ...new Set(sampleArticles.flatMap((a) => a.categories)),
-  ];
-
-  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+  const totalPages = Math.ceil(filteredVideos.length / articlesPerPage);
   const startIdx = (currentPage - 1) * articlesPerPage;
-  const currentArticles = filteredArticles.slice(
+  const currentArticles = filteredVideos.slice(
     startIdx,
     startIdx + articlesPerPage
   );
@@ -43,28 +37,22 @@ export default function Articles() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  if (!currentArticle) return null;
-
   return (
-    <div className="px-4 sm:px-6 lg:px-24 py-10 space-y-24 text-gray-800 pt-20">
-      {selectedArticle ? (
-        <ArticleView
-          article={selectedArticle}
-          onClose={() => setSelectedArticle(null)}
+    <div className="px-4 sm:px-6 lg:px-24 py-10 pt-24 text-gray-800 space-y-10">
+      {selectedVideo ? (
+        <VideoView
+          video={selectedVideo}
+          onClose={() => setSelectedVideo(null)}
         />
       ) : (
         <>
-          {/* Article en vedette */}
-          <ArticleCard
-            className="w-full h-full"
-            article={currentArticle}
-            onClick={() => setSelectedArticle(currentArticle)}
-          />
-
           {/* Catégories + Recherche */}
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             {/* Filtres catégories */}
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide max-w-full sm:flex-wrap sm:justify-start scroll-smooth snap-x">
+            <div
+              className="flex gap-2 overflow-x-auto scrollbar-hide max-w-full sm:flex-wrap sm:justify-start scroll-smooth snap-x
+"
+            >
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -72,11 +60,12 @@ export default function Articles() {
                     setSelectedCategory(cat);
                     setCurrentPage(1);
                   }}
-                  className={`whitespace-nowrap px-4 py-2 rounded-full border text-sm transition-all duration-200 snap-start ${
-                    selectedCategory === cat
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "bg-white text-gray-700 hover:bg-blue-100"
-                  }`}
+                  className={`whitespace-nowrap px-4 py-2 rounded-full border text-sm transition-all duration-200 snap-start
+ ${
+   selectedCategory === cat
+     ? "bg-blue-600 text-white shadow-md"
+     : "bg-white text-gray-700 hover:bg-blue-100"
+ }`}
                 >
                   {cat}
                 </button>
@@ -90,7 +79,7 @@ export default function Articles() {
             >
               <input
                 type="search"
-                placeholder="Rechercher un article..."
+                placeholder="Rechercher une vidéo"
                 className="w-full px-3 py-2 text-sm focus:outline-none"
                 value={search}
                 onChange={(e) => {
@@ -101,16 +90,16 @@ export default function Articles() {
             </form>
           </div>
 
-          {/* Grille des articles */}
+          {/* Grille des vidéos */}
           <section className="space-y-6 text-center">
-            <h2 className="text-2xl font-semibold">Articles</h2>
+            <h2 className="text-2xl font-semibold">Vidéos</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {currentArticles.map((article) => (
-                <ArticleCard
-                  key={article.id}
-                  article={article}
+              {currentArticles.map((video) => (
+                <VideosCard
+                  key={video.id}
+                  video={video}
                   onClick={() => {
-                    setSelectedArticle(article);
+                    setSelectedVideo(video);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                 />
