@@ -38,7 +38,7 @@ export default function Videos() {
   };
 
   return (
-    <div className="px-4 sm:px-6 lg:px-24 py-10 pt-24 text-gray-800 space-y-10">
+    <div className="sm:px-6 lg:px-24 py-10 space-y-24 mx-6 text-gray-800 pt-20">
       {selectedVideo ? (
         <VideoView
           video={selectedVideo}

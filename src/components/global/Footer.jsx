@@ -9,8 +9,8 @@ import {
 
 function Footer() {
   return (
-    <footer className="bg-white text-[#6B7280] py-10 px-6 ">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start space-y-8 md:space-y-0 md:space-x-16">
+    <footer className=" text-[#6B7280]  sm:px-6 py-3 mx-30 ">
+      <div className="max-w-7xl width-full flex md:flex-row justify-betweenitems-center md:items-start space-y-8 md:space-y-0 md:space-x-16">
         <div className="flex-1 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start space-x-2 mb-2">
             <div className="flex space-x-1">
@@ -26,7 +26,7 @@ function Footer() {
           </p>
         </div>
 
-        <div className="flex-1 max-w-md text-center md:text-left">
+        <div className="flex-2 text-center md:text-left ">
           <h4 className="font-semibold text-[#374151] mb-2">
             Subscribe to our newsletter
           </h4>
@@ -45,7 +45,7 @@ function Footer() {
           </form>
         </div>
 
-        <div className="flex-1 text-center md:text-left">
+        <div className="flex-1 text-center md:text-left  ">
           <h4 className="font-semibold text-[#374151] mb-2">Follow us</h4>
           <div className="flex justify-center md:justify-start space-x-3 text-[#9CA3AF] text-lg">
             <FaFacebookF className="hover:text-[#4B5563] cursor-pointer" />
