@@ -1,31 +1,32 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom"; // Correction ici
+import { createBrowserRouter, RouterProvider } from "react-router";
 import Footer from "./components/global/Footer";
-import Navbar from "./components/global/Navbar"; // Assurez-vous que la casse correspond
+import Navbar from "./components/global/Navbar";
 import "./index.css";
 import Admin from "./pages/Admin/Admin";
 import Articles from "./pages/Articles/Articles";
-import Contact from "./pages/Contact/Contact"; // Vérifiez que ce fichier existe
-import Donation from "./pages/Donation/Donation"; // Correction de l'orthographe
+import Contact from "./pages/Contact/Contact";
+import Donation from "./pages/Donation/Donation";
 import Home from "./pages/Home/Home";
 import Videos from "./pages/Videos/Videos";
 
-const router = createBrowserRouter([
+const routes = createBrowserRouter([
   { path: "/", element: <Home /> },
   { path: "/videos", element: <Videos /> },
   { path: "/articles", element: <Articles /> },
-  { path: "/donation", element: <Donation /> }, // Orthographe corrigée
+  { path: "/donation", element: <Donation /> }, 
   { path: "/contact", element: <Contact /> },
   { path: "/admin", element: <Admin /> },
 ]);
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Navbar />
     <div className="container">
       <div className="container__content">
-        <RouterProvider router={router} />
+        <RouterProvider router={routes} />
       </div>
     </div>
     <Footer />
