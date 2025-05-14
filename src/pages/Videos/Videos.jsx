@@ -89,7 +89,7 @@ export default function Videos() {
               </Box>
             </div>
 
-            {/* Recherche */}
+            
             <Stack spacing={2} sx={{ width: 300 }}>
               <Autocomplete
                 id="free-solo-demo"

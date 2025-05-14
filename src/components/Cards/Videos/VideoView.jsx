@@ -1,10 +1,9 @@
-import React from "react";
 
 export default function VideoView({ video, onClose }) {
   if (!video) return null;
 
   return (
-    <div className="px-4 sm:px-6 lg:px-24 py-10 pt-24 space-y-10 bg-white text-gray-800">
+    <div className="px-4 sm:px-6 lg:px-24 py-10 pt-10 space-y-10 bg-white text-gray-800">
       {/* Bannière Vidéo */}
       <div className="relative w-full h-60 sm:h-72 md:h-80 rounded-lg overflow-hidden shadow-lg bg-gray-200">
         <video

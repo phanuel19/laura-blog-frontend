@@ -55,18 +55,18 @@ export const sampleVideos = [
     date: "2024-11-05",
     categories: ["Santé mentale", "Dépression"],
   },
-  {
-    id: 6,
-    title: "Méditation pour le sommeil profond",
-    description:
-      "Guidance pour s'endormir paisiblement et améliorer la qualité du sommeil.",
-    thumbnail:
-      "https://images.unsplash.com/photo-1548613053-ffd2c528b927?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
-    url: "/videos/video6.mp4",
-    author: "Zen Masters",
-    date: "2024-11-06",
-    categories: ["Méditation", "Sommeil"],
-  },
+  // {
+  //   id: 6,
+  //   title: "Méditation pour le sommeil profond",
+  //   description:
+  //     "Guidance pour s'endormir paisiblement et améliorer la qualité du sommeil.",
+  //   thumbnail:
+  //     "https://images.unsplash.com/photo-1548613053-ffd2c528b927?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+  //   url: "/videos/video6.mp4",
+  //   author: "Zen Masters",
+  //   date: "2024-11-06",
+  //   categories: ["Méditation", "Sommeil"],
+  // },
   {
     id: 7,
     title: "Gestion des attaques de panique",

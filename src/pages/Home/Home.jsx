@@ -63,7 +63,7 @@ function Home() {
           Nouvelles Thématiques
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sampleVideos.filter((e)=> e.id < 7).map((video) => (
+          {sampleVideos.filter((e)=> e.id < 8).map((video) => (
             <VideosCard
               key={video.id}
               video={video}
