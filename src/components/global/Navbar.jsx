@@ -55,7 +55,7 @@ function Navbar() {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden sm:flex items-center space-x-4 text-sm ">
+        <nav className="hidden sm:flex items-center space-x-10 text-sm ">
           {links}
         </nav>
 

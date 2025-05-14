@@ -67,14 +67,14 @@ function Home() {
             <VideosCard
               key={video.id}
               video={video}
-              onClick={() => navigate(`/videos`, { preventScrollReset: true })}
+              onClick={() => navigate(`/videos`,)}
               // Assure-toi que le chemin est correct
             />
           ))}
         </div>
         <button
           className="mt-6 px-6 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800"
-          onClick={() => navigate("/videos", { preventScrollReset: true })}
+          onClick={() => navigate("/videos")}
         >
           Découvrir Plus 
         </button>

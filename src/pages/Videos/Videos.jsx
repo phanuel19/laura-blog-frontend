@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import VideosCard from "../../components/Cards/Videos/VideosCard";
 import VideoView from "../../components/Cards/Videos/VideoView";
 import { sampleVideos } from "../../data/sampleVideos";
@@ -17,6 +17,7 @@ export default function Videos() {
   const [currentPage, setCurrentPage] = useState(1);
   // const [options, setOptions] = useState([]);
   const articlesPerPage = 9;
+
 
   const categories = [
     "Tous",
@@ -50,6 +51,12 @@ export default function Videos() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+
+
+    useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }, [])
+  
   return (
     <div className="sm:px-6 lg:px-24 py-10 space-y-10 mx-6 text-gray-800 pt-20">
       {selectedVideo ? (

@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import TextField from "@mui/material/TextField";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ArticleCard from "../../components/Cards/Article/ArticleCard";
 import ArticleView from "../../components/Cards/Article/ArticleView";
 import { sampleArticles } from "../../data/sampleArticles";
@@ -21,6 +21,7 @@ export default function Articles() {
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * sampleArticles.length);
     setCurrentArticle(sampleArticles[randomIndex]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const filteredArticles = sampleArticles.filter((article) => {
@@ -44,7 +45,7 @@ export default function Articles() {
     startIdx,
     startIdx + articlesPerPage
   );
-   const handleChange = (event, newValue) => {
+  const handleChange = (event, newValue) => {
     setSelectedCategory(newValue);
     setCurrentPage(1);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -66,11 +67,11 @@ export default function Articles() {
       ) : (
         <>
           {/* Article en vedette */}
-          <ArticleCard
+          {/* <ArticleCard
             className="w-full h-full"
             article={currentArticle}
             onClick={() => setSelectedArticle(currentArticle)}
-          />
+          /> */}
 
           {/* Filtres + recherche */}
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -89,15 +90,14 @@ export default function Articles() {
                   ))}
                 </Tabs>
               </Box>
-       
             </div>
- <Stack spacing={2} sx={{ width: 300 }}>
+            <Stack spacing={2} sx={{ width: 300 }}>
               <Autocomplete
                 id="free-solo-demo"
                 inputValue={search}
                 onInputChange={(event, newInputValue) => {
                   setSearch(newInputValue);
-                    setCurrentPage(1);
+                  setCurrentPage(1);
                 }}
                 freeSolo
                 options={currentArticles
@@ -124,14 +124,14 @@ export default function Articles() {
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex justify-center mt-8 gap-2 flex-wrap">
-               <Stack spacing={2}>
-              <Pagination
-                count={totalPages}
-                variant="outlined"
-                shape="rounded"
-                onChange={handlePageChange}
-              />
-            </Stack>
+              <Stack spacing={2}>
+                <Pagination
+                  count={totalPages}
+                  variant="outlined"
+                  shape="rounded"
+                  onChange={handlePageChange}
+                />
+              </Stack>
             </div>
           )}
         </>
