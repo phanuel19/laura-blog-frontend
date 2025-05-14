@@ -1,5 +1,4 @@
-import { CalendarDays, Tag, User } from "lucide-react";
-import React from "react";
+import { CalendarDays, User } from "lucide-react";
 
 export default function VideosCard({ video, onClick }) {
   return (
@@ -7,7 +6,7 @@ export default function VideosCard({ video, onClick }) {
       onClick={onClick}
       className="cursor-pointer border rounded-lg overflow-hidden shadow-sm bg-white transition hover:shadow-md"
     >
-      <div className="w-full h-40 bg-gray-200 flex items-center justify-center">
+      <div className="w-full h-63 bg-gray-200 flex items-center justify-center">
         <img
           src={video.thumbnail}
           alt={video.title}
@@ -15,7 +14,7 @@ export default function VideosCard({ video, onClick }) {
         />
       </div>
 
-      <div className="p-4 space-y-2 text-left">
+      <div className="p-4 space-y-1 text-left">
         <div className="flex items-center gap-2 text-sm text-gray-500">
           <User className="w-4 h-4" />
           <span>{video.author || "Auteur inconnu"}</span>
@@ -27,7 +26,7 @@ export default function VideosCard({ video, onClick }) {
           {video.description || "Pas de description disponible."}
         </p>
 
-        <div className="flex gap-2 flex-wrap text-xs">
+        <div className="flex gap-2 flex-wrap text-xs mt-4">
           {video.categories.map((cat) => (
             <span
               key={cat}
@@ -40,12 +39,10 @@ export default function VideosCard({ video, onClick }) {
 
         <div className="flex justify-between text-xs text-gray-500 pt-2">
           <div className="flex items-center gap-1">
-            <CalendarDays className="w-4 h-4" />
-            <span>{video.date || "Inconnue"}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Tag className="w-4 h-4" />
-            <span>{video.category || "Divers"}</span>
+            <CalendarDays className="w-4 h-4" />
+            <span>{video.date || "date Inconnue"}</span>
           </div>
         </div>
       </div>
