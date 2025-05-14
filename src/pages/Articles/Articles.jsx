@@ -1,3 +1,10 @@
+import Autocomplete from "@mui/material/Autocomplete";
+import Box from "@mui/material/Box";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import TextField from "@mui/material/TextField";
 import React, { useEffect, useState } from "react";
 import ArticleCard from "../../components/Cards/Article/ArticleCard";
 import ArticleView from "../../components/Cards/Article/ArticleView";
@@ -37,16 +44,20 @@ export default function Articles() {
     startIdx,
     startIdx + articlesPerPage
   );
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+   const handleChange = (event, newValue) => {
+    setSelectedCategory(newValue);
+    setCurrentPage(1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!currentArticle) return null;
 
   return (
-    <div className="sm:px-6 lg:px-24 py-10 space-y-24 mx-6 text-gray-800 pt-20">
+    <div className="sm:px-6 lg:px-24 py-10 space-y-10 mx-6 text-gray-800 pt-20">
       {selectedArticle ? (
         <ArticleView
           article={selectedArticle}
@@ -64,34 +75,39 @@ export default function Articles() {
           {/* Filtres + recherche */}
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex flex-wrap gap-2 overflow-x-auto scrollbar-hide">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => {
-                    setSelectedCategory(cat);
-                    setCurrentPage(1);
-                  }}
-                  className={`whitespace-nowrap px-4 py-2 rounded-full border text-sm transition-all duration-200 ${
-                    selectedCategory === cat
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "bg-white text-gray-700 hover:bg-blue-100"
-                  }`}
+              <Box sx={{ maxWidth: { xs: 320, sm: 480 } }}>
+                <Tabs
+                  value={selectedCategory}
+                  onChange={handleChange}
+                  variant="scrollable"
+                  scrollButtons
+                  allowScrollButtonsMobile
+                  aria-label="scrollable force tabs example"
                 >
-                  {cat}
-                </button>
-              ))}
+                  {categories.map((cat, idx) => (
+                    <Tab key={idx} label={cat} value={cat} />
+                  ))}
+                </Tabs>
+              </Box>
+       
             </div>
-
-            <input
-              type="text"
-              placeholder="Rechercher un article..."
-              className="border px-4 py-2 rounded-md w-full md:w-1/3"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setCurrentPage(1);
-              }}
-            />
+ <Stack spacing={2} sx={{ width: 300 }}>
+              <Autocomplete
+                id="free-solo-demo"
+                inputValue={search}
+                onInputChange={(event, newInputValue) => {
+                  setSearch(newInputValue);
+                    setCurrentPage(1);
+                }}
+                freeSolo
+                options={currentArticles
+                  .map((option) => option.title)
+                  .sort((a, b) => a.localeCompare(b))}
+                renderInput={(params) => (
+                  <TextField {...params} label="Rechercher un Article" />
+                )}
+              />{" "}
+            </Stack>
           </div>
 
           {/* Grille des articles */}
@@ -108,19 +124,14 @@ export default function Articles() {
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex justify-center mt-8 gap-2 flex-wrap">
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i + 1}
-                  onClick={() => handlePageChange(i + 1)}
-                  className={`px-4 py-2 rounded-full border transition ${
-                    currentPage === i + 1
-                      ? "bg-blue-600 text-white"
-                      : "bg-white text-gray-700 hover:bg-gray-100"
-                  }`}
-                >
-                  {i + 1}
-                </button>
-              ))}
+               <Stack spacing={2}>
+              <Pagination
+                count={totalPages}
+                variant="outlined"
+                shape="rounded"
+                onChange={handlePageChange}
+              />
+            </Stack>
             </div>
           )}
         </>

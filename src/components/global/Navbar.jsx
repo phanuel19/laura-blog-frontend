@@ -62,7 +62,7 @@ function Navbar() {
         {/* Burger Button */}
         <button
           onClick={toggleMenu}
-          className="sm:hidden text-white focus:outline-none"
+          className="sm:hidden  focus:outline-none"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -70,7 +70,7 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="sm:hidden mt-4 flex flex-col gap-3 text-sm text-gray-100">
+        <div className="sm:hidden mt-4 flex flex-col gap-3 text-sm ">
           {links}
         </div>
       )}
