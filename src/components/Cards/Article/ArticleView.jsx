@@ -1,5 +1,4 @@
 import { Share2 } from "lucide-react";
-import React from "react";
 
 export default function ArticleView({ article, onClose }) {
   return (
@@ -45,11 +44,11 @@ export default function ArticleView({ article, onClose }) {
       </div>
 
       {/* Image */}
-      <div className="mt-6 w-full h-48 sm:h-72 bg-gray-200 rounded-lg overflow-hidden">
+      <div className="mt-6 w-full h-48 sm:h-100 bg-gray-200 rounded-lg overflow-hidden relative">
         <img
           src={article.image}
           alt="Article"
-          className="w-full h-full object-cover"
+          className="w-full  object-cover absolute top-[-20%]"
         />
       </div>
 

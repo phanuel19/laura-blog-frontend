@@ -58,7 +58,7 @@ export default function Articles() {
   if (!currentArticle) return null;
 
   return (
-    <div className="sm:px-6 lg:px-24 py-10 space-y-10 mx-6 text-gray-800 pt-20">
+    <div className="sm:px-6 lg:px-24 py-5 space-y-10 mx-6 text-gray-800 pt-7  ">
       {selectedArticle ? (
         <ArticleView
           article={selectedArticle}

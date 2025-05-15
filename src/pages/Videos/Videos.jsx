@@ -62,6 +62,7 @@ export default function Videos() {
       {selectedVideo ? (
         <VideoView
           video={selectedVideo}
+          selectVideo ={setSelectedVideo}
           onClose={() => setSelectedVideo(null)}
         />
       ) : (
