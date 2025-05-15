@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Footer from "./components/global/Footer";
-import Navbar from "./components/global/navbar";
+import Navbar from "./components/global/Navbar";
 import "./index.css";
 import Admin from "./pages/Admin/Admin";
 import Articles from "./pages/Articles/Articles";
