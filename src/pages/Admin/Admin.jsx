@@ -12,7 +12,8 @@ import {
   FiVideo
 } from 'react-icons/fi';
 import Testimonials from '../Testimonials/Testimonials';
-// import UserForm from './UserForm';
+import ArticlesForm from './ArticlesForm';
+import VideoForm from './VideoForm';
 
 const Admin = () => {
   // États pour les onglets
@@ -196,7 +197,7 @@ const Admin = () => {
       {/* Sidebar - Desktop */}
       <div className="hidden md:flex md:flex-shrink-0">
         <div className="flex flex-col w-64 bg-white border-r border-gray-200">
-    
+
           <nav className="flex-1 p-4 space-y-2">
             <button
               onClick={() => setTabValue(0)}
@@ -249,12 +250,6 @@ const Admin = () => {
           <div className="fixed inset-0 z-40">
             <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setMobileOpen(false)}></div>
             <div className="relative flex flex-col w-72 max-w-xs bg-white h-full">
-              <div className="flex items-center justify-between h-16 px-4 bg-blue-600 text-white">
-                <h1 className="text-xl font-bold">Admin Dashboard</h1>
-                <button onClick={() => setMobileOpen(false)} className="text-white">
-                  &times;
-                </button>
-              </div>
               <nav className="flex-1 p-4 space-y-2">
                 <button
                   onClick={() => { setTabValue(0); setMobileOpen(false); }}
@@ -305,17 +300,20 @@ const Admin = () => {
             <div>
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-800">Gestion des utilisateurs</h2>
-                <Button 
+                {/* <Button 
                   variant="contained" 
                   color="primary"
                   onClick={() => {
                     setEditMode({ type: 'user', id: null });
-                    // setModalContent(<UserForm onCreateDone={() => setOpenModal(false)} />);
+                    setModalContent(<UserForm onCreateDone={() => setOpenModal(false)}  onSave={async (userData) => {
+    // Envoyer les données à votre API
+    console.log('Création:', userData);
+  }}/>);
                     setOpenModal(true);
                   }}
                 >
                   <FiPlus className="mr-2" /> Ajouter un utilisateur
-                </Button>
+                </Button> */}
               </div>
               <Testimonials />
             </div>
@@ -333,27 +331,7 @@ const Admin = () => {
                     setArticleForm({ title: '', content: '' });
                     setEditMode({ type: 'article', id: null });
                     setModalContent(
-                      <form onSubmit={handleArticleSubmit} className="space-y-4">
-                        <TextField
-                          fullWidth
-                          label="Titre de l'article"
-                          value={articleForm.title}
-                          onChange={(e) => setArticleForm({...articleForm, title: e.target.value})}
-                          required
-                        />
-                        <TextField
-                          fullWidth
-                          multiline
-                          rows={6}
-                          label="Contenu"
-                          value={articleForm.content}
-                          onChange={(e) => setArticleForm({...articleForm, content: e.target.value})}
-                          required
-                        />
-                        <Button type="submit" variant="contained" color="primary">
-                          Publier
-                        </Button>
-                      </form>
+                      <ArticlesForm/>
                     );
                     setOpenModal(true);
                   }}
@@ -411,26 +389,7 @@ const Admin = () => {
                     setVideoForm({ title: '', url: '' });
                     setEditMode({ type: 'video', id: null });
                     setModalContent(
-                      <form onSubmit={handleVideoSubmit} className="space-y-4">
-                        <TextField
-                          fullWidth
-                          label="Titre de la vidéo"
-                          value={videoForm.title}
-                          onChange={(e) => setVideoForm({...videoForm, title: e.target.value})}
-                          required
-                        />
-                        <TextField
-                          fullWidth
-                          label="URL de la vidéo (embed)"
-                          value={videoForm.url}
-                          onChange={(e) => setVideoForm({...videoForm, url: e.target.value})}
-                          required
-                          placeholder="https://youtube.com/embed/..."
-                        />
-                        <Button type="submit" variant="contained" color="primary">
-                          Ajouter
-                        </Button>
-                      </form>
+                     <VideoForm/>
                     );
                     setOpenModal(true);
                   }}
@@ -597,6 +556,42 @@ const Admin = () => {
           {modalContent}
         </Box>
       </Modal>
+      {/* <div className="mt-12">
+        <h2 className="text-xl font-semibold mb-4">Vidéos existantes</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {videos.map((video) => (
+            <div key={video.id} className="bg-white p-4 rounded-lg shadow">
+              <img src={video.thumbnail} alt={video.title} className="w-full h-40 object-cover rounded-md mb-2" />
+              <h3 className="font-medium">{video.title}</h3>
+              <p className="text-sm text-gray-600">{video.description}</p>
+              <div className="flex flex-wrap gap-1 mt-2">
+                {video.categories.map((cat) => (
+                  <span key={cat} className="text-xs bg-gray-100 px-2 py-1 rounded">{cat}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      Liste des articles existants 
+      <div className="mt-12">
+        <h2 className="text-xl font-semibold mb-4">Articles existants</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {articles.map((article) => (
+            <div key={article.id} className="bg-white p-4 rounded-lg shadow">
+              <img src={article.image} alt={article.title} className="w-full h-40 object-cover rounded-md mb-2" />
+              <h3 className="font-medium">{article.title}</h3>
+              <p className="text-sm text-gray-600">{article.description}</p>
+              <div className="flex flex-wrap gap-1 mt-2">
+                {article.categories.map((cat) => (
+                  <span key={cat} className="text-xs bg-gray-100 px-2 py-1 rounded">{cat}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div> */}
     </div>
   );
 };
