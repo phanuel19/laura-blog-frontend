@@ -18,7 +18,7 @@ export const sampleArticles = [
     image: "https://images.unsplash.com/photo-1544717305-2782549b5136",
     author: "James Clear",
     date: "2024-02-28",
-    categories: ["Développement personnel", "Productivité"],
+    categories: ["Développement personnel", "Productivité"] ,
     content:
       "Les habitudes minuscules ont un pouvoir disproportionné car elles sont faciles à maintenir et s'accumulent avec le temps. Commencez par des actions si petites qu'elles semblent ridicules, comme faire 2 pompes par jour ou lire une page chaque soir. La clé est la régularité, pas l'intensité. Ces petites victoires créent un élan psychologique qui mène à des changements durables.",
   },
@@ -29,7 +29,7 @@ export const sampleArticles = [
     image: "https://images.unsplash.com/photo-1531353826977-0941b4779a1c",
     author: "Matthew Walker",
     date: "2024-01-15",
-    categories: ["Santé", "Productivité"],
+    categories: ["Santé", "Productivité"], 
     content:
       "Un sommeil de qualité est le fondement d'une vie productive et équilibrée. Pour améliorer votre sommeil, établissez une routine régulière, évitez les écrans avant de dormir et maintenez votre chambre fraîche et sombre. La privation de sommeil affecte négativement la mémoire, la créativité et la santé immunitaire. Considérez le sommeil comme un investissement dans votre réussite.",
   },

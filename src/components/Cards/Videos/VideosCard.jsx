@@ -4,7 +4,7 @@ export default function VideosCard({ video, onClick }) {
   return (
     <div
       onClick={onClick}
-      className="cursor-pointer border rounded-lg overflow-hidden shadow-sm bg-white transition hover:shadow-md"
+      className="cursor-pointer border rounded-lg overflow-hidden shadow-sm bg-white transition hover:shadow-md  w-96"
     >
       <div className="w-full h-63 bg-gray-200 flex items-center justify-center">
         <img
