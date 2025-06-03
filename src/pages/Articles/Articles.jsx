@@ -8,19 +8,34 @@ import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 import ArticleCard from "../../components/Cards/Article/ArticleCard";
 import ArticleView from "../../components/Cards/Article/ArticleView";
-import { sampleArticles } from "../../data/sampleArticles";
+import {article} from "../../services/ArticleServices.js"
+
 
 export default function Articles() {
   const [search, setSearch] = useState("");
+  const [sampleArticles, setSampleArticles] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Tous");
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [currentArticle, setCurrentArticle] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 9;
 
+
+  const fetchArticles = async () => {
+    try{
+      const result = await article.GetArticles()
+      setSampleArticles(result.datas)
+    }catch(e){
+      console.log(e)
+    }
+
+  }
+
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * sampleArticles.length);
-    setCurrentArticle(sampleArticles[randomIndex]);
+    fetchArticles()
+    /*const randomIndex = Math.floor(Math.random() * sampleArticles.length);
+    setCurrentArticle(sampleArticles[randomIndex]);*/
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
@@ -36,7 +51,7 @@ export default function Articles() {
 
   const categories = [
     "Tous",
-    ...new Set(sampleArticles.flatMap((a) => a.categories)),
+    ...sampleArticles.map((a) => a.title)
   ];
 
   const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
@@ -55,7 +70,6 @@ export default function Articles() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  if (!currentArticle) return null;
 
   return (
     <div className="sm:px-6 lg:px-24 py-5 space-y-10 mx-6 text-gray-800 pt-7  ">
@@ -112,7 +126,7 @@ export default function Articles() {
 
           {/* Grille des articles */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentArticles.map((article) => (
+            {sampleArticles.map((article) => (
               <ArticleCard
                 key={article.id}
                 article={article}

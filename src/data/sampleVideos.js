@@ -1,4 +1,6 @@
-export const sampleVideos = [
+import {video} from '../services/VideoServices';
+
+/* export const sampleVideos = [
   {
     id: 1,
     title: "Comprendre l'anxiété sociale",
@@ -281,3 +283,6 @@ export const sampleVideos = [
     categories: ["Relations", "Développement personnel"],
   },
 ];
+*/
+
+export const sampleVideos = video.GetVideos

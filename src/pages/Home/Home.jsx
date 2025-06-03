@@ -7,6 +7,8 @@ import firstImage from "../../../public/depressed.jpg";
 import VideosCard from "../../components/Cards/Videos/VideosCard";
 import { sampleVideos } from "../../data/sampleVideos";
 
+
+
 function Home() {
   const navigate = useNavigate();
 

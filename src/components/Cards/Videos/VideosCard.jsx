@@ -27,7 +27,7 @@ export default function VideosCard({ video, onClick }) {
         </p>
 
         <div className="flex gap-2 flex-wrap text-xs mt-4">
-          {video.categories.map((cat) => (
+          {video?.categories?.map((cat) => (
             <span
               key={cat}
               className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full"

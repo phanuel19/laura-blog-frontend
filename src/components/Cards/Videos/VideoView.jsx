@@ -5,9 +5,9 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 import { useEffect, useState } from "react";
-import { sampleVideos } from "../../../data/sampleVideos";
 
-export default function VideoView({ video, onClose, selectVideo }) {
+
+export default function VideoView({ video, onClose, selectVideo, sampleVideos }) {
   const [currentRandom, setCurrentRandom] = useState([]);
 
   const randomElements = () => {
