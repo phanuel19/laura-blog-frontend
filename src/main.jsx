@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import Footer from "./components/global/Footer";
 import Navbar from "./components/global/Navbar";
 import "./index.css";
-import Admin from "./pages/Admin/Admin";
+import Admin from "./pages/Backoffice/Admin";
 import Articles from "./pages/Articles/Articles";
 import Contact from "./pages/Contact/Contact";
 import Donation from "./pages/Donation/Donation";

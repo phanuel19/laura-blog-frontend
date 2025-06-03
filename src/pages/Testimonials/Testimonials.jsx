@@ -3,7 +3,7 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import {
   FiAlertCircle,
   FiHeart,
@@ -11,6 +11,7 @@ import {
   FiSend,
   FiUser,
 } from "react-icons/fi";
+import {testimonialService} from "../../services/TestimonialsServices.js";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,23 +50,7 @@ function a11yProps(index) {
 }
 
 const Testimonials = () => {
-  const [testimonies, setTestimonies] = useState([
-    {
-      id: 1,
-      content:
-        "Ce service m'a vraiment aidé à traverser une période difficile. Merci pour cette plateforme anonyme.",
-      likes: 24,
-      date: "2023-05-15",
-    },
-    {
-      id: 2,
-      content:
-        "Je ne pensais pas pouvoir partager mon histoire avant de découvrir cet espace sécurisé.",
-      likes: 15,
-      date: "2023-06-02",
-    },
-  ]);
-
+  const [testimonies, setTestimonies] = useState([]);
   const [value, setValue] = useState(0);
   const [newTestimony, setNewTestimony] = useState("");
   const [error, setError] = useState("");
@@ -117,7 +102,17 @@ const Testimonials = () => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString("fr-FR", options);
   };
-
+  const fetchTestimonials = async () => {
+    try {
+      const result = await testimonialService.getAllTestimonials()
+      setTestimonies(result);
+    }catch(error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    fetchTestimonials()
+  }, []);
   return (
     <Box
       sx={{

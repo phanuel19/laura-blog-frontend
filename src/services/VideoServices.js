@@ -1,39 +1,90 @@
 import Axios from "axios";
+
 class VideoServices {
-  server = "http://localhost:5000"
+  server = "http://localhost:5000";
+
   constructor() {
     this.routes = {
       getVideo: '/api/v1/videos',
-      addVideo: '/api/v1/addVideo',
-      getVideoById: '/api/v1/getVideo/',
-      updateVideo: '/api/v1/updateVideo/',
-      deleteVideo: '/api/v1/deleteVideo/',
-    }
-    this.status = 200
+      addVideo: '/api/v1/videos',
+      getVideoById: '/api/v1/videos/:id',
+      updateVideo: '/api/v1/videos/:id',
+      deleteVideo: '/api/v1/videos/:id',
+    };
+    this.status = 200;
   }
 
-  async AddVideo(video){
-    Axios.post(this.server + this.routes.addVideo, video)
-      .then(response => {
-        this.status = response.status;
-        return response.data;
-        
-      })
-      .catch(error => {
-        console.error('Error adding video:', error);
-        this.status = error.response ? error.response.status : 500;
-      });
-  }
-  async GetVideos() {
+  async get(endpoint, params = {}) {
     try {
-      const response = await Axios.get(this.server + this.routes.getVideo);
+      const response = await Axios.get(this.server + endpoint, { params });
       this.status = response.status;
-      return response.data
+      return response.data;
     } catch (error) {
-      console.error('Error fetching videos:', error);
-      this.status = error.response ? error.response.status : 500;
-      return [];
+      this.handleError(error);
+      throw error;
     }
+  }
+
+  async post(endpoint, data) {
+    try {
+      const response = await Axios.post(this.server + endpoint, data);
+      this.status = response.status;
+      return response.data;
+    } catch (error) {
+      this.handleError(error);
+      throw error;
+    }
+  }
+
+  async put(endpoint, data) {
+    try {
+      const response = await Axios.put(this.server + endpoint, data);
+      this.status = response.status;
+      return response.data;
+    } catch (error) {
+      this.handleError(error);
+      throw error;
+    }
+  }
+
+  async delete(endpoint) {
+    try {
+      const response = await Axios.delete(this.server + endpoint);
+      this.status = response.status;
+      return response.data;
+    } catch (error) {
+      this.handleError(error);
+      throw error;
+    }
+  }
+
+  handleError(error) {
+    console.error('API Error:', error);
+    this.status = error.response?.status || 500;
+  }
+
+  // CRUD Operations
+  async AddVideo(video) {
+    return this.post(this.routes.addVideo, video);
+  }
+
+  async GetVideos() {
+    return await this.get(this.routes.getVideo);
+  }
+
+  async GetVideoById(id) {
+    const endpoint = this.routes.getVideoById.replace(':id', id);
+    return this.get(endpoint);
+  }
+
+  async UpdateVideo(id, video) {
+    const endpoint = this.routes.updateVideo.replace(':id', id);
+    return this.put(endpoint, video);
+  }
+
+  async DeleteVideo(id) {
+    const endpoint = this.routes.deleteVideo.replace(':id', id);
+    return this.delete(endpoint);
   }
 }
 

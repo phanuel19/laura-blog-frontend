@@ -5,13 +5,27 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import { useNavigate } from "react-router";
 import firstImage from "../../../public/depressed.jpg";
 import VideosCard from "../../components/Cards/Videos/VideosCard";
-import { sampleVideos } from "../../data/sampleVideos";
+import {video} from "../../services/VideoServices.js"
+import {useEffect, useState} from "react";
 
 
 
 function Home() {
   const navigate = useNavigate();
+  const [sampleVideos, setSampleVideos] = useState([]);
+  const fetchVideos = async () => {
+    try{
+      const result = await video.GetVideos()
+      setSampleVideos(result.datas)
+    }catch(e){
+      console.log(e)
+    }
 
+  }
+  useEffect(() => {
+  fetchVideos()
+
+  }, [])
   return (
     <main className="px-4 sm:px-8 md:px-20 lg:px-40 py-10 space-y-24 text-gray-800 pt-20">
       <section className="flex flex-col md:flex-row items-center justify-between gap-10">

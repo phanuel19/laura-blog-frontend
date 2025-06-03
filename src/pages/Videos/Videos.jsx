@@ -10,7 +10,7 @@ import {useEffect, useState} from "react";
 import VideosCard from "../../components/Cards/Videos/VideosCard";
 import VideoView from "../../components/Cards/Videos/VideoView";
 import {video} from "../../services/VideoServices.js"
-import {CategoryVideo} from "../../services/CategoryVideoServices.js";
+import {categoryVideo} from "../../services/CategoryVideoServices.js";
 
 export default function Videos() {
     const [search, setSearch] = useState(" ");
@@ -42,7 +42,7 @@ export default function Videos() {
     }
     const fetchCategories = async () => {
         try{
-            const result = await CategoryVideo.getCategoryVideo()
+            const result = await categoryVideo.getCategoryVideo()
             console.log(result)
             setCategory(result.datas)
         }catch(e){

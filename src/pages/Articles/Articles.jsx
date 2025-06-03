@@ -1,155 +1,163 @@
-import Autocomplete from "@mui/material/Autocomplete";
-import Box from "@mui/material/Box";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import TextField from "@mui/material/TextField";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { Autocomplete, Box, Pagination, Stack, Tab, Tabs, TextField } from "@mui/material";
 import ArticleCard from "../../components/Cards/Article/ArticleCard";
 import ArticleView from "../../components/Cards/Article/ArticleView";
-import {article} from "../../services/ArticleServices.js"
+import { article } from "../../services/ArticleServices";
+import { categoryArticle } from "../../services/CategoryArticleServices";
 
 
 export default function Articles() {
+  // State management
   const [search, setSearch] = useState("");
-  const [sampleArticles, setSampleArticles] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [articles, setArticles] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Tous");
   const [selectedArticle, setSelectedArticle] = useState(null);
-  const [currentArticle, setCurrentArticle] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const articlesPerPage = 9;
 
+  // Data fetching
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const [articlesRes, categoriesRes] = await Promise.all([
+        article.GetArticles(),
+        categoryArticle.getCategoryArticle()
+      ]);
 
-  const fetchArticles = async () => {
-    try{
-      const result = await article.GetArticles()
-      setSampleArticles(result.datas)
-    }catch(e){
-      console.log(e)
+      setArticles(articlesRes.datas || []);
+      setCategories(["Tous", ...(categoriesRes.datas?.map(c => c.name) || [])]);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError("Failed to load data. Please try again later.");
+    } finally {
+      setLoading(false);
     }
-
-  }
+  };
 
   useEffect(() => {
-    fetchArticles()
-    /*const randomIndex = Math.floor(Math.random() * sampleArticles.length);
-    setCurrentArticle(sampleArticles[randomIndex]);*/
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    fetchData();
+    window.scrollTo({ top: 0 });
   }, []);
 
-  const filteredArticles = sampleArticles.filter((article) => {
-    const matchCategory =
-      selectedCategory === "Tous" ||
-      article.categories.includes(selectedCategory);
-    const matchSearch = article.title
-      .toLowerCase()
-      .includes(search.toLowerCase());
-    return matchCategory && matchSearch;
-  });
+  // Filter and pagination logic
+  const filteredArticles = useMemo(() => {
+    return articles.filter(article => {
+      const matchesCategory = selectedCategory === "Tous" ||
+          (article.categories && article.categories.includes(selectedCategory));
+      const matchesSearch = article.title?.toLowerCase().includes(search.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [articles, selectedCategory, search]);
 
-  const categories = [
-    "Tous",
-    ...sampleArticles.map((a) => a.title)
-  ];
+  const paginatedArticles = useMemo(() => {
+    const startIdx = (currentPage - 1) * articlesPerPage;
+    return filteredArticles.slice(startIdx, startIdx + articlesPerPage);
+  }, [filteredArticles, currentPage]);
 
   const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
-  const startIdx = (currentPage - 1) * articlesPerPage;
-  const currentArticles = filteredArticles.slice(
-    startIdx,
-    startIdx + articlesPerPage
-  );
-  const handleChange = (event, newValue) => {
+
+  // Handlers
+  const handleCategoryChange = (_, newValue) => {
     setSelectedCategory(newValue);
-    setCurrentPage(1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    resetPagination();
   };
 
+  const handleSearchChange = (_, newValue) => {
+    setSearch(newValue);
+    resetPagination();
+  };
+
+  const handlePageChange = (_, value) => {
+    setCurrentPage(value);
+    window.scrollTo({ top: 0 });
+  };
+
+  const resetPagination = () => {
+    setCurrentPage(1);
+    window.scrollTo({ top: 0 });
+  };
+
+  // Render states
+  if (loading) return <div className="text-center py-10">Loading articles...</div>;
+  if (error) return <div className="text-center py-10 text-red-500">{error}</div>;
 
   return (
-    <div className="sm:px-6 lg:px-24 py-5 space-y-10 mx-6 text-gray-800 pt-7  ">
-      {selectedArticle ? (
-        <ArticleView
-          article={selectedArticle}
-          onClose={() => setSelectedArticle(null)}
-        />
-      ) : (
-        <>
-          {/* Article en vedette */}
-          {/* <ArticleCard
-            className="w-full h-full"
-            article={currentArticle}
-            onClick={() => setSelectedArticle(currentArticle)}
-          /> */}
+      <div className="sm:px-6 lg:px-24 py-5 space-y-10 mx-6 text-gray-800 pt-7">
+        {selectedArticle ? (
+            <ArticleView
+                article={selectedArticle}
+                onClose={() => setSelectedArticle(null)}
+            />
+        ) : (
+            <>
+              {/* Filters section */}
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div className="flex flex-wrap gap-2 overflow-x-auto scrollbar-hide">
+                  <Box sx={{ maxWidth: { xs: 320, sm: 480 } }}>
+                    <Tabs
+                        value={selectedCategory}
+                        onChange={handleCategoryChange}
+                        variant="scrollable"
+                        scrollButtons
+                        allowScrollButtonsMobile
+                    >
+                      {categories.map((cat, idx) => (
+                          <Tab key={`cat-${idx}`} label={cat} value={cat} />
+                      ))}
+                    </Tabs>
+                  </Box>
+                </div>
 
-          {/* Filtres + recherche */}
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex flex-wrap gap-2 overflow-x-auto scrollbar-hide">
-              <Box sx={{ maxWidth: { xs: 320, sm: 480 } }}>
-                <Tabs
-                  value={selectedCategory}
-                  onChange={handleChange}
-                  variant="scrollable"
-                  scrollButtons
-                  allowScrollButtonsMobile
-                  aria-label="scrollable force tabs example"
-                >
-                  {categories.map((cat, idx) => (
-                    <Tab key={idx} label={cat} value={cat} />
-                  ))}
-                </Tabs>
-              </Box>
-            </div>
-            <Stack spacing={2} sx={{ width: 300 }}>
-              <Autocomplete
-                id="free-solo-demo"
-                inputValue={search}
-                onInputChange={(event, newInputValue) => {
-                  setSearch(newInputValue);
-                  setCurrentPage(1);
-                }}
-                freeSolo
-                options={currentArticles
-                  .map((option) => option.title)
-                  .sort((a, b) => a.localeCompare(b))}
-                renderInput={(params) => (
-                  <TextField {...params} label="Rechercher un Article" />
-                )}
-              />{" "}
-            </Stack>
-          </div>
+                <Stack spacing={2} sx={{ width: 300 }}>
+                  <Autocomplete
+                      freeSolo
+                      options={[...new Set(articles.map(a => a.title))].sort()}
+                      inputValue={search}
+                      onInputChange={handleSearchChange}
+                      renderInput={(params) => (
+                          <TextField {...params} label="Search Articles" />
+                      )}
+                  />
+                </Stack>
+              </div>
 
-          {/* Grille des articles */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sampleArticles.map((article) => (
-              <ArticleCard
-                key={article.id}
-                article={article}
-                onClick={() => setSelectedArticle(article)}
-              />
-            ))}
-          </div>
+              {/* Articles grid */}
+              {filteredArticles.length === 0 ? (
+                  <div className="text-center py-10">
+                    No articles found matching your criteria.
+                  </div>
+              ) : (
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {paginatedArticles.map(article => (
+                          <ArticleCard
+                              key={article.id}
+                              article={article}
+                              onClick={() => setSelectedArticle(article)}
+                          />
+                      ))}
+                    </div>
 
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex justify-center mt-8 gap-2 flex-wrap">
-              <Stack spacing={2}>
-                <Pagination
-                  count={totalPages}
-                  variant="outlined"
-                  shape="rounded"
-                  onChange={handlePageChange}
-                />
-              </Stack>
-            </div>
-          )}
-        </>
-      )}
-    </div>
+                    {/* Pagination */}
+                    {totalPages > 1 && (
+                        <div className="flex justify-center mt-8">
+                          <Pagination
+                              count={totalPages}
+                              page={currentPage}
+                              onChange={handlePageChange}
+                              variant="outlined"
+                              shape="rounded"
+                          />
+                        </div>
+                    )}
+                  </>
+              )}
+            </>
+        )}
+      </div>
   );
 }

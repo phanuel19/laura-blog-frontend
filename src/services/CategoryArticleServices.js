@@ -1,16 +1,16 @@
 import Axios from 'axios';
 
-class CategoryVideoServices {
+class CategoryArticleServices {
     server = "http://localhost:5000";
 
     constructor() {
         this.routes = {
-            getCategoryVideoId: '/api/v1/categoryVideo/id',
-            getCategoryVideo: '/api/v1/categoryVideo',
-            assignCategoryToVideo: '/api/v1/categoryVideo',
-            deleteVideo: '/api/v1/categoryVideo/:video_id/:category_id',
-            getVideoFromCategory: '/api/v1/categoryVideo/videosFrom/:category_id',
-            getCategoryFromVideo: '/api/v1/categoryVideo/categoryFrom/:video_id',
+            getCategoryArticleId: '/api/v1/categoryArticle/id',
+            getCategoryArticle: '/api/v1/categoryArticle',
+            assignCategoryToArticle: '/api/v1/categoryArticle',
+            deleteArticle: '/api/v1/categoryArticle/:article_id/:category_id',
+            getArticleFromCategory: '/api/v1/categoryArticle/articlesFrom/:category_id',
+            getCategoryFromArticle: '/api/v1/categoryArticle/categoryFrom/:article_id',
         };
         this.status = 200;
     }
@@ -55,40 +55,40 @@ class CategoryVideoServices {
     }
 
     // Specific service methods
-    async getCategoryVideo() {
-        return await this.get(this.routes.getCategoryVideo);
+    async getCategoryArticle() {
+        return await this.get(this.routes.getCategoryArticle);
     }
 
-    async getCategoryVideoById(id) {
-        const endpoint = `${this.routes.getCategoryVideoId}/${id}`;
+    async getCategoryArticleById(id) {
+        const endpoint = `${this.routes.getCategoryArticleId}/${id}`;
         return this.get(endpoint);
     }
 
-    async assignCategoryToVideo(videoId, categoryId) {
-        return this.post(this.routes.assignCategoryToVideo, {
-            video_id: videoId,
+    async assignCategoryToArticle(articleId, categoryId) {
+        return this.post(this.routes.assignCategoryToArticle, {
+            article_id: articleId,
             category_id: categoryId
         });
     }
 
-    async deleteVideoCategory(videoId, categoryId) {
-        const endpoint = this.routes.deleteVideo
-            .replace(':video_id', videoId)
+    async deleteArticleCategory(articleId, categoryId) {
+        const endpoint = this.routes.deleteArticle
+            .replace(':article_id', articleId)
             .replace(':category_id', categoryId);
         return this.delete(endpoint);
     }
 
-    async getVideosFromCategory(categoryId) {
-        const endpoint = this.routes.getVideoFromCategory
+    async getArticlesFromCategory(categoryId) {
+        const endpoint = this.routes.getArticleFromCategory
             .replace(':category_id', categoryId);
         return this.get(endpoint);
     }
 
-    async getCategoriesFromVideo(videoId) {
-        const endpoint = this.routes.getCategoryFromVideo
-            .replace(':video_id', videoId);
+    async getCategoriesFromArticle(articleId) {
+        const endpoint = this.routes.getCategoryFromArticle
+            .replace(':article_id', articleId);
         return this.get(endpoint);
     }
 }
 
-export const categoryVideo = new CategoryVideoServices();
+export const categoryArticle = new CategoryArticleServices();
