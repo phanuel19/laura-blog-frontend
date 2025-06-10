@@ -3,6 +3,10 @@ import ChatIcon from '@mui/icons-material/Chat';
 import HomeIcon from '@mui/icons-material/Home';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import { Menu, X } from "lucide-react"; // Icônes Lucide
+import Button from '@mui/material/Button';
+import MenuI from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { useState } from "react";
 
 
@@ -27,6 +31,23 @@ function Navbar() {
       <a href="/testimonials" className="items-cente">
       <ChatIcon/>  Témoignage
       </a>
+        <PopupState variant="popover" popupId="demo-popup-menu">
+            {(popupState) => (
+
+                <div>
+                    <Button variant="contained" {...bindTrigger(popupState)}>
+                        Dashboard
+                    </Button>
+                    <MenuI {...bindMenu(popupState)}>
+                        <MenuItem onClick={popupState.close}>DashBoard</MenuItem>
+                        <MenuItem onClick={popupState.close}>Articles</MenuItem>
+                        <MenuItem onClick={()=>{location.pathname="admin/videos"}}>Videos</MenuItem>
+                        <MenuItem onClick={popupState.close}>Categories</MenuItem>
+                        <MenuItem onClick={popupState.close}>Settings</MenuItem>
+                    </MenuI>
+                </div>
+            )}
+        </PopupState>
       {/* <a
         href="/donation"
         className="bg-pink-100 text-gray-800 px-4 py-1 rounded-md hover:bg-pink-200 transition"
