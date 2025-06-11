@@ -68,7 +68,7 @@ const Testimonials = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!newTestimony.trim()) {
+    if (!newTestimony?.trim()) {
       setError("Veuillez écrire votre témoignage avant de soumettre");
       return;
     }
@@ -189,7 +189,7 @@ const Testimonials = () => {
                                 }`}
                             />
                             <span>
-                        {testimony.likes} soutien
+                        {testimony?.likes} soutien
                               {testimony.likes !== 1 ? "s" : ""}
                       </span>
                           </button>

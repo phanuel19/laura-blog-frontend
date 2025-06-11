@@ -28,8 +28,8 @@ export default function Articles() {
         categoryArticle.getCategoryArticle()
       ]);
 
-      setArticles(articlesRes.datas || []);
-      setCategories(["Tous", ...(categoriesRes.datas?.map(c => c.name) || [])]);
+      setArticles(articlesRes?.datas || []);
+      setCategories(["Tous", ...(categoriesRes?.datas?.map(c => c.name) || [])]);
     } catch (err) {
       console.error("Fetch error:", err);
       setError("Failed to load data. Please try again later.");
@@ -45,7 +45,7 @@ export default function Articles() {
 
   // Filter and pagination logic
   const filteredArticles = useMemo(() => {
-    return articles.filter(article => {
+    return articles?.filter(article => {
       const matchesCategory = selectedCategory === "Tous" ||
           (article.categories && article.categories.includes(selectedCategory));
       const matchesSearch = article.title?.toLowerCase().includes(search.toLowerCase());

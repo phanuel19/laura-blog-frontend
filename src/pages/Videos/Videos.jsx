@@ -57,7 +57,7 @@ export default function Videos() {
         fetchCategories();
     }, []);
 
-    const filteredVideos = videos.filter((video) => {
+    const filteredVideos = videos?.filter((video) => {
         const matchCategory =
             selectedCategory === "Tous" ||
             video.categories.includes(selectedCategory);
