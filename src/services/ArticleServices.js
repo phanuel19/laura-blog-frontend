@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 class ArticleServices {
-    server = "http://localhost:5000";
+    server =import.meta.env.SERVER
 
     constructor() {
         this.routes = {
