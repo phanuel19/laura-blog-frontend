@@ -159,7 +159,7 @@ const Testimonials = () => {
                 Témoignages récents ({testimonies?.length})
               </h3>
 
-              {testimonies.length === 0 ? (
+              {testimonies?.length === 0 ? (
                   <p className="text-gray-500 italic">
                     Aucun témoignage pour le moment. Soyez le premier à partager !
                   </p>
@@ -226,7 +226,7 @@ const Testimonials = () => {
                 />
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-2 gap-2 md:gap-0">
                     <div className="text-xs md:text-sm text-gray-500">
-                      {newTestimony.length}/1000 caractères
+                      {newTestimony?.length}/1000 caractères
                     </div>
                     <button
                         type="submit"
