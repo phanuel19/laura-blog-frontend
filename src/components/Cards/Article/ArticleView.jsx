@@ -1,98 +1,238 @@
-import { Share2 } from "lucide-react";
+import { Share2, ArrowLeft } from "lucide-react";
+import {
+    Box,
+    Typography,
+    Button,
+    Avatar,
+    Chip,
+    Divider,
+    IconButton,
+    useMediaQuery,
+    useTheme, TextField
+} from "@mui/material";
+import { teal, grey } from '@mui/material/colors';
 
 export default function ArticleView({ article, onClose }) {
-  return (
-    <div className="max-w-4xl w-full mx-auto px-4 sm:px-6 py-8">
-      {/* Titre + Bouton partager */}
-      <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
-        <div className="flex-1">
-          <h1 className="text-2xl sm:text-3xl font-bold text-black mb-2">
-            {article.title}
-          </h1>
-          <p className="text-sm sm:text-base text-gray-600">
-            {article.subtitle ||
-              "Article pour vous parler de la dépression, un phénomène plus ou moins destructeur chez les jeunes en Côte d’Ivoire"}
-          </p>
-        </div>
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-        <div className="flex items-center gap-4">
-          <Share2 className="cursor-pointer text-black" />
-          <button
-            className="text-blue-600 hover:underline text-sm sm:text-base"
-            onClick={onClose}
-          >
-            ← Retour
-          </button>
-        </div>
-      </div>
+    return (
+        <Box sx={{
+            maxWidth: 800,
+            mx: 'auto',
+            px: isMobile ? 2 : 4,
+            py: 4,
+            backgroundColor: 'white',
+            borderRadius: 2,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
+        }}>
+            {/* Header */}
+            <Box sx={{
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                gap: 2,
+                mb: 4
+            }}>
+                <Box sx={{ flex: 1 }}>
+                    <Button
+                        startIcon={<ArrowLeft size={18} />}
+                        onClick={onClose}
+                        sx={{
+                            textTransform: 'none',
+                            color: teal[700],
+                            mb: 2,
+                            pl: 0,
+                            '&:hover': {
+                                backgroundColor: 'transparent'
+                            }
+                        }}
+                    >
+                        Retour aux articles
+                    </Button>
 
-      {/* Barre de souscription */}
-      <div className="mt-6">
-        <form className="flex flex-col sm:flex-row items-center gap-3 max-w-md">
-          <input
-            type="email"
-            placeholder="Entrez votre email"
-            className="border border-black px-4 py-2 w-full rounded text-sm"
-          />
-          <button
-            type="submit"
-            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 w-full sm:w-auto"
-          >
-            S’abonner
-          </button>
-        </form>
-      </div>
+                    <Typography variant="h4" component="h1" sx={{
+                        fontWeight: 700,
+                        mb: 2,
+                        color: 'text.primary'
+                    }}>
+                        {article.title}
+                    </Typography>
 
-      {/* Image */}
-      <div className="mt-6 w-full h-48 sm:h-100 bg-gray-200 rounded-lg overflow-hidden relative">
-        <img
-          src={article.image}
-          alt="Article"
-          className="w-full  object-cover absolute top-[-20%]"
-        />
-      </div>
+                    <Typography variant="subtitle1" sx={{
+                        color: 'text.secondary',
+                        fontSize: '1.1rem'
+                    }}>
+                        {article.subtitle || "Découvrez des informations essentielles sur la santé mentale et des conseils pour votre bien-être."}
+                    </Typography>
+                </Box>
 
-      {/* Auteur et source */}
-      <div className="flex items-center mt-6 gap-4 text-sm text-gray-700">
-        <div className="flex items-center gap-2">
-          <span className="w-8 h-8 rounded-full bg-gray-300" />
-          <div>
-            <div className="font-semibold">
-              {article.author || "First Last"}
-            </div>
-            <div className="text-xs text-gray-500">
-              Source – {article.date || "DD/MM/YYYY"}
-            </div>
-          </div>
-        </div>
-      </div>
+                <IconButton
+                    aria-label="partager"
+                    sx={{
+                        backgroundColor: grey[100],
+                        '&:hover': {
+                            backgroundColor: grey[200]
+                        }
+                    }}
+                >
+                    <Share2 size={20} />
+                </IconButton>
+            </Box>
 
-      {/* Tags */}
-      <div className="mt-4 flex gap-2 flex-wrap">
-        {article.categories?.map((cat) => (
-          <span
-            key={cat}
-            className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700"
-          >
-            {cat}
-          </span>
-        ))}
-      </div>
+            {/* Subscription */}
+            <Box sx={{
+                backgroundColor: teal[50],
+                p: 3,
+                borderRadius: 2,
+                mb: 4,
+                textAlign: 'center'
+            }}>
+                <Typography variant="body1" sx={{ mb: 2, fontWeight: 500 }}>
+                    Abonnez-vous pour recevoir nos dernières ressources
+                </Typography>
+                <Box
+                    component="form"
+                    sx={{
+                        display: 'flex',
+                        flexDirection: isMobile ? 'column' : 'row',
+                        gap: 2,
+                        maxWidth: 500,
+                        mx: 'auto'
+                    }}
+                >
+                    <TextField
+                        variant="outlined"
+                        placeholder="Votre adresse email"
+                        size="small"
+                        sx={{
+                            flex: 1,
+                            backgroundColor: 'white',
+                            borderRadius: '50px',
+                            '& .MuiOutlinedInput-root': {
+                                borderRadius: '50px'
+                            }
+                        }}
+                    />
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{
+                            borderRadius: '50px',
+                            textTransform: 'none',
+                            px: 4,
+                            py: 1.5,
+                            backgroundColor: teal[700],
+                            '&:hover': {
+                                backgroundColor: teal[800]
+                            }
+                        }}
+                    >
+                        S'abonner
+                    </Button>
+                </Box>
+            </Box>
 
-      {/* Contenu */}
-      <div className="mt-8 space-y-4 text-sm sm:text-base leading-relaxed text-gray-800">
-        {article.content?.split("\n").map((paragraph, idx) => (
-          <p key={idx}>{paragraph}</p>
-        ))}
-      </div>
+            {/* Image */}
+            <Box sx={{
+                width: '100%',
+                height: isMobile ? 200 : 350,
+                borderRadius: 2,
+                overflow: 'hidden',
+                mb: 4,
+                position: 'relative'
+            }}>
+                <Box
+                    component="img"
+                    src={article.image}
+                    alt={article.title}
+                    sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                    }}
+                />
+            </Box>
 
-      {/* Bouton partager */}
-      <div className="mt-10 text-center">
-        <button className="flex items-center gap-2 text-sm text-gray-600 hover:underline mx-auto">
-          <Share2 size={16} />
-          PARTAGER
-        </button>
-      </div>
-    </div>
-  );
+            {/* Author and metadata */}
+            <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+                mb: 3
+            }}>
+                <Avatar sx={{ width: 48, height: 48 }} />
+                <Box>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                        {article.author || "Auteur inconnu"}
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                        Publié le {article.date || "date inconnue"}
+                    </Typography>
+                </Box>
+            </Box>
+
+            {/* Tags */}
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 4 }}>
+                {article.categories?.map((cat) => (
+                    <Chip
+                        key={cat}
+                        label={cat}
+                        size="small"
+                        sx={{
+                            backgroundColor: teal[50],
+                            color: teal[700],
+                            '& .MuiChip-label': {
+                                px: 1.5
+                            }
+                        }}
+                    />
+                ))}
+            </Box>
+
+            <Divider sx={{ my: 3 }} />
+
+            {/* Content */}
+            <Box sx={{
+                '& p': {
+                    mb: 3,
+                    lineHeight: 1.8,
+                    color: 'text.primary'
+                }
+            }}>
+                {article.content?.split("\n").map((paragraph, idx) => (
+                    <Typography key={idx} >
+                        {paragraph}
+                    </Typography>
+                ))}
+            </Box>
+
+            {/* Share button */}
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                mt: 6
+            }}>
+                <Button
+                    startIcon={<Share2 size={18} />}
+                    variant="outlined"
+                    sx={{
+                        borderRadius: '50px',
+                        textTransform: 'none',
+                        px: 4,
+                        py: 1.5,
+                        borderColor: grey[300],
+                        color: 'text.primary',
+                        '&:hover': {
+                            borderColor: teal[700],
+                            backgroundColor: teal[50]
+                        }
+                    }}
+                >
+                    Partager cet article
+                </Button>
+            </Box>
+        </Box>
+    );
 }
