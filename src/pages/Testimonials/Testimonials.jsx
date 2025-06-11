@@ -68,12 +68,12 @@ const Testimonials = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!newTestimony.trim()) {
+    if (!newTestimony?.trim()) {
       setError("Veuillez écrire votre témoignage avant de soumettre");
       return;
     }
 
-    if (newTestimony.length < 20) {
+    if (newTestimony?.length < 20) {
       setError("Votre témoignage doit contenir au moins 20 caractères");
       return;
     }
@@ -156,7 +156,7 @@ const Testimonials = () => {
           <TabPanel value={value} index={0}>
             <div className="space-y-6 h-full">
               <h3 className="text-xl font-semibold text-gray-700">
-                Témoignages récents ({testimonies.length})
+                Témoignages récents ({testimonies?.length})
               </h3>
 
               {testimonies.length === 0 ? (
@@ -167,7 +167,7 @@ const Testimonials = () => {
                   <div className="space-y-4 pr-0 md:pr-4 overflow-y-auto" style={{
                     maxHeight: isMobile ? 'none' : 'calc(100vh - 200px)'
                   }}>
-                    {testimonies.map((testimony) => (
+                    {testimonies?.map((testimony) => (
                         <div
                             key={testimony.id}
                             className="border border-gray-200 rounded-lg p-4 md:p-5 hover:shadow-md transition-shadow"
@@ -189,7 +189,7 @@ const Testimonials = () => {
                                 }`}
                             />
                             <span>
-                        {testimony.likes} soutien
+                        {testimony?.likes} soutien
                               {testimony.likes !== 1 ? "s" : ""}
                       </span>
                           </button>
