@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 class TestimonialServices {
-    server =import.meta.env.SERVER
+    server =import.meta.env.VITE_SERVER
 
     constructor() {
         this.routes = {

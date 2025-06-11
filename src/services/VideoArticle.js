@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 class VideoArticleServices {
-    baseURL = "http://localhost:5000/api/v1/videoArticle";
+    baseURL = import.meta.env.VITE_SERVER + "/api/v1/videoArticle";
 
     constructor() {
         this.status = null;

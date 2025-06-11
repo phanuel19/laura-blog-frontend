@@ -95,7 +95,7 @@ function Home() {
           ${!isMobile && !isTablet ? 'grid-cols-3' : ''}
           gap-4 sm:gap-6
         `}>
-            {sampleVideos.filter((e) => e.id < 8).map((video) => (
+            {sampleVideos?.filter((e) => e.id < 8).map((video) => (
                 <VideosCard
                     key={video.id}
                     video={video}
