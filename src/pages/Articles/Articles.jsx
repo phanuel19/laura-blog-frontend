@@ -72,7 +72,7 @@ export default function Articles() {
   const paginatedArticles = useMemo(() => {
     const startIdx = (currentPage - 1) * articlesPerPage;
     return filteredArticles.slice(startIdx, startIdx + articlesPerPage);
-  }, [filteredArticles, currentPage]);
+  }, [currentPage, articlesPerPage, filteredArticles]);
 
   const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
 
@@ -114,7 +114,7 @@ export default function Articles() {
       <ThemeProvider theme={theme}>
         <Box sx={{
           backgroundColor: 'background.default',
-          px: isMobile ? 2 : isTablet ? 4 : 6,
+          px: isMobile ? 2 : isTablet ? 4 : 15,
           py: 5,
           minHeight: 'calc(100vh - 64px)'
         }}>
@@ -131,7 +131,7 @@ export default function Articles() {
                   color: 'text.primary',
                   textAlign: isMobile ? 'center' : 'left'
                 }}>
-                  Ressources sur la santé mentale
+                  Articles
                 </Typography>
 
                 {/* Filters section */}

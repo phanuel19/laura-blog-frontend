@@ -282,7 +282,7 @@ function Home() {
                 gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '1fr 1fr 1fr',
                 gap: isMobile ? 3 : 4,
               }}>
-                {sampleVideos?.filter((e) => e.id < 6).map((video) => (
+                {[sampleVideos[0],sampleVideos[1],sampleVideos[3]]?.map((video) => (
                     <VideosCard
                         key={video.id}
                         video={video}

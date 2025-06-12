@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {
     DataGrid,
-    GridToolbarContainer,
-    GridToolbarExport,
-    GridToolbarFilterButton,
-    GridToolbarColumnsButton,
-    GridToolbarDensitySelector
+
+
 } from '@mui/x-data-grid';
 import {
     Button,
@@ -25,18 +22,6 @@ import {useNavigate} from 'react-router-dom';
 import {article} from '../../services/ArticleServices.js';
 import {teal} from '@mui/material/colors';
 
-function CustomToolbar() {
-    return (
-        <GridToolbarContainer sx={{justifyContent: 'space-between'}}>
-            <Box>
-                <GridToolbarColumnsButton/>
-                <GridToolbarFilterButton/>
-                <GridToolbarDensitySelector/>
-                <GridToolbarExport/>
-            </Box>
-        </GridToolbarContainer>
-    );
-}
 
 export default function AdminArticles() {
     const [articles, setArticles] = useState([]);
@@ -78,6 +63,7 @@ export default function AdminArticles() {
             field: 'title',
             headerName: 'Titre',
             width: 250,
+            editable: true,
             renderCell: (params) => (
                 <Box sx={{fontWeight: 500}}>
                     {params.value}
@@ -87,17 +73,20 @@ export default function AdminArticles() {
         {
             field: 'author',
             headerName: 'Auteur',
-            width: 150
+            width: 150,
+            editable: true
         },
         {
             field: 'createdAt',
             headerName: 'Date',
             width: 150,
+            editable: false,
             valueFormatter: (params) => new Date(params?.value).toLocaleDateString('fr-FR')
         },
         {
             field: 'categories',
             headerName: 'Catégories',
+            editable: true,
             width: 200,
             renderCell: (params) => (
                 <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 0.5}}>
@@ -128,7 +117,8 @@ export default function AdminArticles() {
             renderCell: (params) => (
                 <Box>
                     <IconButton
-                        onClick={() => navigate(`/admin/articles/edit/${params.row._id}`)}
+                        onClick={() => {
+                            console.log(params.row)}}
                         size="small"
                         sx={{color: teal[700]}}
                     >
@@ -136,7 +126,7 @@ export default function AdminArticles() {
                     </IconButton>
                     <IconButton
                         onClick={() => {
-                            setSelectedId(params.row._id);
+                            setSelectedId(params.row.id);
                             setDeleteDialogOpen(true);
                         }}
                         size="small"
@@ -185,10 +175,12 @@ export default function AdminArticles() {
                     columns={columns}
                     loading={loading}
                     pageSize={10}
+                    rowHeight={30}
+                    editMode={"row"}
                     rowsPerPageOptions={[10, 25, 50]}
                     getRowId={(row) => row.id}
                     components={{
-                        Toolbar: CustomToolbar,
+
                         LoadingOverlay: LinearProgress
                     }}
                     sx={{

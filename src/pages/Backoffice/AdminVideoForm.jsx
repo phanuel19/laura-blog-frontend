@@ -6,29 +6,31 @@ import {
     DialogContent,
     TextField,
     Button,
-    Chip,
+
     Box,
-    Autocomplete
-} from '@mui/material';
+   } from '@mui/material';
+import {video} from "../../services/VideoServices.js";
 
-export default function AdminVideoForm({ open, onClose, video }) {
-    const [formData, setFormData] = useState(video || {
-        title: '',
+export default function AdminVideoForm({ open, onClose, videoselected }) {
+    const [formData, setFormData] = useState(videoselected || {
+        title:'',
         description: '',
+        thumbnail: '',
         url: '',
-        categories: []
-    });
-    const [allCategories, setAllCategories] = useState([]);
+        author: ''
 
-    const handleSubmit = () => {
-        // Envoyer les données à l'API
+    });
+
+
+    const handleSubmit = async () => {
+        await video.AddVideo(formData)
         onClose();
     };
 
     return (
         <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
             <DialogTitle>
-                {video ? 'Modifier la vidéo' : 'Ajouter une nouvelle vidéo'}
+                {videoselected ? 'Modifier la vidéo' : 'Ajouter une nouvelle vidéo'}
             </DialogTitle>
             <DialogContent>
                 <Box sx={{ mt: 2 }}>
@@ -49,6 +51,13 @@ export default function AdminVideoForm({ open, onClose, video }) {
                         onChange={(e) => setFormData({...formData, description: e.target.value})}
                         sx={{ mb: 2 }}
                     />
+                    <TextField
+                        label="Thumbnail"
+                        fullWidth
+                        value={formData.thumbnail}
+                        onChange={(e) => setFormData({...formData, thumbnail: e.target.value})}
+                        sx={{ mb: 2 }}
+                    />
 
                     <TextField
                         label="URL de la vidéo"
@@ -57,8 +66,15 @@ export default function AdminVideoForm({ open, onClose, video }) {
                         onChange={(e) => setFormData({...formData, url: e.target.value})}
                         sx={{ mb: 2 }}
                     />
+                    <TextField
+                        label="Auteur"
+                        fullWidth
+                        value={formData.author}
+                        onChange={(e) => setFormData({...formData, author: e.target.value})}
+                        sx={{ mb: 2 }}
+                    />
 
-                    <Autocomplete
+                    {/*  <Autocomplete
                         multiple
                         options={allCategories}
                         value={formData.categories}
@@ -72,7 +88,7 @@ export default function AdminVideoForm({ open, onClose, video }) {
                             <TextField {...params} label="Catégories" />
                         )}
                         sx={{ mb: 2 }}
-                    />
+                    /> */}
 
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
                         <Button onClick={onClose}>Annuler</Button>

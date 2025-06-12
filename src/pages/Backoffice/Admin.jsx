@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Tab, Tabs, Box } from '@mui/material';
 import AdminArticles from "./AdminArticles.jsx";
-import AdminVideos from "./AdminVideoForm.jsx";
+import AdminVideos from "./AdminVideos.jsx";
 import AdminArticleVideo from "./AdminArticleVideo.jsx";
 import AdminCategory from "./AdminCategory.jsx";
 import AdminCategoryAssignment from "./AdminCategoryAssignment.jsx";
@@ -14,7 +14,7 @@ export default function AdminDashboard() {
     };
 
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '80%' ,marginX : '10%', marginY :'2%' }}>
             <Tabs value={tabValue} onChange={handleTabChange} variant="scrollable">
                 <Tab label="Articles" />
                 <Tab label="Vidéos" />
