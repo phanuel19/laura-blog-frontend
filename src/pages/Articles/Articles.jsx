@@ -21,7 +21,6 @@ import { categoryArticle } from "../../services/CategoryArticleServices";
 import {  ThemeProvider } from '@mui/material/styles';
 import { teal} from '@mui/material/colors';
 
-
 export default function Articles() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

@@ -101,7 +101,7 @@ const Testimonials = () => {
   };
 
   const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
+    const options = {year: "numeric", month: "long", day: "numeric"};
     return new Date(dateString).toLocaleDateString("fr-FR", options);
   };
 
@@ -176,10 +176,10 @@ const Testimonials = () => {
                             <FiUser className="mr-1" />
                             <span>Anonyme</span>
                             <span className="mx-1">•</span>
-                            <span>{formatDate(testimony.created_at)}</span>
+                            <span>{formatDate(testimony.createdAt)}</span>
                           </div>
                           <p className="text-gray-700 mb-3 md:mb-4">{testimony.content}</p>
-                          <button
+                          {/* <button
                               onClick={() => handleLike(testimony.id)}
                               className="flex items-center text-gray-500 hover:text-red-500 transition-colors text-sm md:text-base"
                           >
@@ -192,7 +192,7 @@ const Testimonials = () => {
                         {testimony?.likes} soutien
                               {testimony.likes !== 1 ? "s" : ""}
                       </span>
-                          </button>
+                          </button>*/ }
                         </div>
                     ))}
                   </div>

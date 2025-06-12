@@ -1,6 +1,6 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {StrictMode} from "react";
+import {createRoot} from "react-dom/client";
+import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import Footer from "./components/global/Footer";
 import Navbar from "./components/global/Navbar";
 import "./index.css";
@@ -11,36 +11,28 @@ import Donation from "./pages/Donation/Donation";
 import Home from "./pages/Home/Home";
 import Testimonials from "./pages/Testimonials/Testimonials";
 import Videos from "./pages/Videos/Videos";
-import AdminArticles from "./pages/Backoffice/AdminArticles";
-import AdminVideos from "./pages/Backoffice/AdminVideos";
-import AdminSettings from "./pages/Backoffice/AdminSettings";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: (
             <>
-                <Navbar />
-                <Outlet />
-                <Footer />
+                <Navbar/>
+                <Outlet/>
+                <Footer/>
             </>
         ),
         children: [
-            { index: true, element: <Home /> },
-            { path: "videos", element: <Videos /> },
-            { path: "articles", element: <Articles /> },
-            { path: "testimonials", element: <Testimonials /> },
-            { path: "donation", element: <Donation /> },
-            { path: "contact", element: <Contact /> },
+            {index: true, element: <Home/>},
+            {path: "videos", element: <Videos/>},
+            {path: "articles", element: <Articles/>},
+            {path: "testimonials", element: <Testimonials/>},
+            {path: "donation", element: <Donation/>},
+            {path: "contact", element: <Contact/>},
             {
                 path: "admin",
-                element: <Admin />,
-                children: [
-                    { index: true, element: <Admin /> },
-                    { path: "articles", element: <AdminArticles /> },
-                    { path: "videos", element: <AdminVideos /> },
-                    { path: "settings", element: <AdminSettings /> },
-                ],
+                element: <Admin/>,
+
             },
         ],
     },
@@ -48,6 +40,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-        <RouterProvider router={router} />
+        <RouterProvider router={router}/>
     </StrictMode>
 );

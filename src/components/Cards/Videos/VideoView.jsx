@@ -23,7 +23,7 @@ export default function VideoView({
         return shuffled.slice(0, Math.min(12, sampleVideos.length));
     }, [sampleVideos]);
     const getCountDays = (video) => {
-        let videoDate = new Date(Date.parse(video.created_at))
+        let videoDate = new Date(Date.parse(video.createdAt))
         let now = new Date(Date.now());
         let operation = now.getTime() - videoDate.getTime();
         let status = {
@@ -31,7 +31,6 @@ export default function VideoView({
             'hours': Math.ceil(operation / (1000 * 60 * 60)),
             'minutes': Math.ceil(operation / (1000 * 60)),
         }
-        console.log(status);
         if (status.days > 30) {
             return `${status.days / 30} mois`;
         } else if (status.days > 0) {
