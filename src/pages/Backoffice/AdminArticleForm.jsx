@@ -1,229 +1,119 @@
-import React, { useState } from 'react';
 import {
     TextField,
     Button,
     Box,
     Chip,
-    Typography,
-    Paper,
-    IconButton,
-    Avatar,
-    LinearProgress,
-    Alert
+    Autocomplete,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+    FormHelperText
 } from '@mui/material';
-import { AddPhotoAlternate, Delete, Save } from '@mui/icons-material';
-import { teal } from '@mui/material/colors';
+import { useState } from 'react';
 
-export default function AdminArticleForm({ initialData, onSubmit, loading, error }) {
-    const [article, setArticle] = useState(initialData || {
+export default function AdminArticleForm({ article, onClose, onSubmit }) {
+    const [formData, setFormData] = useState(article || {
         title: '',
         description: '',
         content: '',
         categories: [],
-        author: ''
+        author: '',
+        status: 'draft'
     });
-    const [categoryInput, setCategoryInput] = useState('');
-    const [thumbnail, setThumbnail] = useState(null);
-    const [thumbnailPreview, setThumbnailPreview] = useState(initialData?.thumbnail || null);
-
-    const handleChange = (e) => {
-        setArticle({...article, [e.target.name]: e.target.value});
-    };
-
-    const handleAddCategory = () => {
-        if (categoryInput && !article.categories.includes(categoryInput)) {
-            setArticle({
-                ...article,
-                categories: [...article.categories, categoryInput]
-            });
-            setCategoryInput('');
-        }
-    };
-
-    const handleThumbnailChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setThumbnail(file);
-            setThumbnailPreview(URL.createObjectURL(file));
-        }
-    };
-
-    const handleRemoveThumbnail = () => {
-        setThumbnail(null);
-        setThumbnailPreview(null);
-    };
+    const [allCategories, setAllCategories] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('title', article.title);
-        formData.append('description', article.description);
-        formData.append('content', article.content);
-        formData.append('author', article.author);
-        formData.append('categories', article.categories.join(','));
-        if (thumbnail) formData.append('thumbnail', thumbnail);
-
         onSubmit(formData);
     };
 
     return (
-        <Paper elevation={0} sx={{ p: 3, borderRadius: 2 }}>
-            <Typography variant="h5" sx={{ fontWeight: 600, mb: 3 }}>
-                {initialData ? 'Modifier l\'article' : 'Créer un nouvel article'}
-            </Typography>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
+            <TextField
+                label="Titre *"
+                fullWidth
+                value={formData.title}
+                onChange={(e) => setFormData({...formData, title: e.target.value})}
+                required
+                sx={{ mb: 3 }}
+            />
 
-            {error && (
-                <Alert severity="error" sx={{ mb: 3 }}>
-                    {error}
-                </Alert>
-            )}
+            <TextField
+                label="Description *"
+                fullWidth
+                multiline
+                rows={3}
+                value={formData.description}
+                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                required
+                sx={{ mb: 3 }}
+            />
 
-            {loading && <LinearProgress sx={{ mb: 3 }} />}
+            <TextField
+                label="Contenu *"
+                fullWidth
+                multiline
+                rows={10}
+                value={formData.content}
+                onChange={(e) => setFormData({...formData, content: e.target.value})}
+                required
+                sx={{ mb: 3 }}
+            />
 
-            <Box component="form" onSubmit={handleSubmit}>
-                <TextField
-                    fullWidth
-                    label="Titre *"
-                    name="title"
-                    value={article.title}
-                    onChange={handleChange}
-                    margin="normal"
-                    required
-                    sx={{ mb: 2 }}
-                />
-
-                <TextField
-                    fullWidth
-                    label="Description *"
-                    name="description"
-                    value={article.description}
-                    onChange={handleChange}
-                    margin="normal"
-                    required
-                    multiline
-                    rows={3}
-                    sx={{ mb: 2 }}
-                />
-
-                <TextField
-                    fullWidth
-                    label="Contenu *"
-                    name="content"
-                    value={article.content}
-                    onChange={handleChange}
-                    margin="normal"
-                    required
-                    multiline
-                    rows={6}
-                    sx={{ mb: 2 }}
-                />
-
-                <Box sx={{ mb: 3 }}>
-                    <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                        Image de couverture
-                    </Typography>
-                    {thumbnailPreview ? (
-                        <Box sx={{ position: 'relative', width: 'fit-content' }}>
-                            <Avatar
-                                src={thumbnailPreview}
-                                variant="rounded"
-                                sx={{ width: 200, height: 120 }}
-                            />
-                            <IconButton
-                                onClick={handleRemoveThumbnail}
-                                sx={{
-                                    position: 'absolute',
-                                    top: 8,
-                                    right: 8,
-                                    backgroundColor: 'rgba(255,255,255,0.8)',
-                                    '&:hover': {
-                                        backgroundColor: 'rgba(255,255,255,0.9)'
-                                    }
-                                }}
-                            >
-                                <Delete fontSize="small" />
-                            </IconButton>
-                        </Box>
-                    ) : (
-                        <Button
-                            component="label"
-                            variant="outlined"
-                            startIcon={<AddPhotoAlternate />}
-                            sx={{ mr: 2 }}
-                        >
-                            Ajouter une image
-                            <input
-                                type="file"
-                                accept="image/*"
-                                hidden
-                                onChange={handleThumbnailChange}
-                            />
-                        </Button>
-                    )}
-                </Box>
-
-                <Box sx={{ mb: 3 }}>
-                    <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                        Catégories
-                    </Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                        <TextField
-                            label="Ajouter une catégorie"
-                            value={categoryInput}
-                            onChange={(e) => setCategoryInput(e.target.value)}
-                            onKeyPress={(e) => e.key === 'Enter' && handleAddCategory()}
-                            size="small"
-                            sx={{ mr: 1 }}
+            <Autocomplete
+                multiple
+                freeSolo
+                options={allCategories}
+                getOptionLabel={(option) => option.name || option}
+                value={formData.categories}
+                onChange={(e, newValue) => setFormData({...formData, categories: newValue})}
+                renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                        <Chip
+                            label={typeof option === 'string' ? option : option.name}
+                            {...getTagProps({ index })}
                         />
-                        <Button
-                            onClick={handleAddCategory}
-                            variant="outlined"
-                            size="small"
-                        >
-                            Ajouter
-                        </Button>
-                    </Box>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                        {article.categories.map((cat, index) => (
-                            <Chip
-                                key={index}
-                                label={cat}
-                                onDelete={() => setArticle({
-                                    ...article,
-                                    categories: article.categories.filter(c => c !== cat)
-                                })}
-                                sx={{
-                                    backgroundColor: teal[50],
-                                    color: teal[700]
-                                }}
-                            />
-                        ))}
-                    </Box>
-                </Box>
+                    ))
+                }
+                renderInput={(params) => (
+                    <TextField {...params} label="Catégories" />
+                )}
+                sx={{ mb: 3 }}
+            />
 
+            <Box sx={{ display: 'flex', gap: 3, mb: 3 }}>
                 <TextField
-                    fullWidth
                     label="Auteur *"
-                    name="author"
-                    value={article.author}
-                    onChange={handleChange}
-                    margin="normal"
+                    fullWidth
+                    value={formData.author}
+                    onChange={(e) => setFormData({...formData, author: e.target.value})}
                     required
-                    sx={{ mb: 3 }}
                 />
 
-                <Button
-                    type="submit"
-                    variant="contained"
-                    startIcon={<Save />}
-                    sx={{
-                        backgroundColor: teal[700],
-                        '&:hover': { backgroundColor: teal[800] }
-                    }}
-                >
-                    {initialData ? 'Mettre à jour' : 'Créer'}
+                <FormControl fullWidth>
+                    <InputLabel>Statut *</InputLabel>
+                    <Select
+                        value={formData.status}
+                        label="Statut"
+                        onChange={(e) => setFormData({...formData, status: e.target.value})}
+                    >
+                        <MenuItem value="draft">Brouillon</MenuItem>
+                        <MenuItem value="published">Publié</MenuItem>
+                        <MenuItem value="archived">Archivé</MenuItem>
+                    </Select>
+                    <FormHelperText>Choisir le statut de l'article</FormHelperText>
+                </FormControl>
+            </Box>
+
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
+                <Button onClick={onClose} variant="outlined">
+                    Annuler
+                </Button>
+                <Button type="submit" variant="contained">
+                    {article ? 'Mettre à jour' : 'Créer'}
                 </Button>
             </Box>
-        </Paper>
+        </Box>
     );
 }

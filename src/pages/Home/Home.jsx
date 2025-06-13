@@ -235,14 +235,14 @@ function Home() {
                         mb: isMobile ? 1 : 2,
                         lineHeight: 1,
                       }}>
-                        {value.icon}
+                        {value?.icon}
                       </Typography>
                       <Typography variant="h5" component="h3" sx={{
                         mb: isMobile ? 1 : 2,
                         fontWeight: 600,
                         fontSize: isMobile ? '1.2rem' : '1.3rem',
                       }}>
-                        {value.title}
+                        {value?.title}
                       </Typography>
                       <Typography variant="body1" sx={{
                         color: 'text.secondary',
@@ -284,7 +284,7 @@ function Home() {
               }}>
                 {[sampleVideos[0],sampleVideos[1],sampleVideos[3]]?.map((video) => (
                     <VideosCard
-                        key={video.id}
+                        key={video?.id}
                         video={video}
                         onClick={() => navigate(`/videos`)}
                         compact={isMobile}

@@ -1,95 +1,131 @@
-import { useState } from 'react';
 import {
     Box,
     Typography,
-    Tabs,
-    Tab,
     Table,
     TableBody,
     TableCell,
+    TableContainer,
     TableHead,
     TableRow,
+    Paper,
+    Autocomplete,
+    TextField,
+    Button,
     Checkbox
 } from '@mui/material';
+import { useState } from 'react';
 
 export default function AdminCategoryAssignment() {
-    const [tabValue, setTabValue] = useState(0);
     const [articles, setArticles] = useState([]);
-    const [videos, setVideos] = useState([]);
     const [categories, setCategories] = useState([]);
-
-    const handleTabChange = (event, newValue) => {
-        setTabValue(newValue);
-    };
+    const [selectedArticle, setSelectedArticle] = useState(null);
+    const [videos, setVideos] = useState([]);
+    const [selectedVideo, setSelectedVideo] = useState(null);
 
     return (
-        <Box>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-                Assigner des catégories
-            </Typography>
+       <>
+           <Box>
+               <Typography variant="h5" gutterBottom>
+                   Assignation des catégories aux articles
+               </Typography>
 
-            <Tabs value={tabValue} onChange={handleTabChange}>
-                <Tab label="Aux articles" />
-                <Tab label="Aux vidéos" />
-            </Tabs>
+               <Box sx={{ mb: 4 }}>
+                   <Autocomplete
+                       options={articles}
+                       getOptionLabel={(option) => option.title}
+                       sx={{ width: 400 }}
+                       renderInput={(params) => (
+                           <TextField {...params} label="Rechercher un article" />
+                       )}
+                       onChange={(e, value) => setSelectedArticle(value)}
+                   />
+               </Box>
 
-            <Box sx={{ mt: 3 }}>
-                {tabValue === 0 && (
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Article</TableCell>
-                                {categories.map((cat) => (
-                                    <TableCell key={cat._id}>{cat.name}</TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {articles.map((article) => (
-                                <TableRow key={article._id}>
-                                    <TableCell>{article.title}</TableCell>
-                                    {categories.map((cat) => (
-                                        <TableCell key={cat._id}>
-                                            <Checkbox
-                                                checked={article.categories.includes(cat._id)}
-                                                onChange={(e) => handleCategoryToggle(article._id, cat._id, e.target.checked)}
-                                            />
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                )}
+               {selectedArticle && (
+                   <TableContainer component={Paper}>
+                       <Table>
+                           <TableHead>
+                               <TableRow>
+                                   <TableCell>Catégorie</TableCell>
+                                   <TableCell>Assignée</TableCell>
+                               </TableRow>
+                           </TableHead>
+                           <TableBody>
+                               {categories.map((category) => (
+                                   <TableRow key={category._id}>
+                                       <TableCell>{category.name}</TableCell>
+                                       <TableCell>
+                                           <Checkbox
+                                               checked={selectedArticle.categories.includes(category._id)}
+                                               onChange={(e) => {
+                                                   // Logique pour mettre à jour l'assignation
+                                               }}
+                                           />
+                                       </TableCell>
+                                   </TableRow>
+                               ))}
+                           </TableBody>
+                       </Table>
+                   </TableContainer>
+               )}
 
-                {tabValue === 1 && (
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Vidéo</TableCell>
-                                {categories.map((cat) => (
-                                    <TableCell key={cat._id}>{cat.name}</TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {videos.map((video) => (
-                                <TableRow key={video._id}>
-                                    <TableCell>{video.title}</TableCell>
-                                    {categories.map((cat) => (
-                                        <TableCell key={cat._id}>
-                                            <Checkbox
-                                                checked={video.categories.includes(cat._id)}
-                                                onChange={(e) => handleCategoryToggle(video._id, cat._id, e.target.checked, 'video')}
-                                            />
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                )}
-            </Box>
-        </Box>
+               <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+                   <Button variant="contained">
+                       Enregistrer les modifications
+                   </Button>
+               </Box>
+           </Box>
+           <Box>
+               <Typography variant="h5" gutterBottom>
+                   Assignation des catégories aux vidéos
+               </Typography>
+
+               <Box sx={{ mb: 4 }}>
+                   <Autocomplete
+                       options={videos}
+                       getOptionLabel={(option) => option.title}
+                       sx={{ width: 400 }}
+                       renderInput={(params) => (
+                           <TextField {...params} label="Rechercher une vidéo" />
+                       )}
+                       onChange={(e, value) => setSelectedVideo(value)}
+                   />
+               </Box>
+
+               {selectedVideo && (
+                   <TableContainer component={Paper}>
+                       <Table>
+                           <TableHead>
+                               <TableRow>
+                                   <TableCell>Catégorie</TableCell>
+                                   <TableCell>Assignée</TableCell>
+                               </TableRow>
+                           </TableHead>
+                           <TableBody>
+                               {categories.map((category) => (
+                                   <TableRow key={category._id}>
+                                       <TableCell>{category.name}</TableCell>
+                                       <TableCell>
+                                           <Checkbox
+                                               checked={selectedVideo.categories.includes(category._id)}
+                                               onChange={(e) => {
+                                                   // Logique pour mettre à jour l'assignation
+                                               }}
+                                           />
+                                       </TableCell>
+                                   </TableRow>
+                               ))}
+                           </TableBody>
+                       </Table>
+                   </TableContainer>
+               )}
+
+               <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+                   <Button variant="contained">
+                       Enregistrer les modifications
+                   </Button>
+               </Box>
+           </Box></>
     );
 }
+

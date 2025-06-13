@@ -1,51 +1,69 @@
-import { useState } from 'react';
 import {
     Box,
     Typography,
     Table,
     TableBody,
     TableCell,
+    TableContainer,
     TableHead,
     TableRow,
+    Paper,
     Autocomplete,
     TextField,
-    Button
+    Button,
+    IconButton
 } from '@mui/material';
+import { Delete } from '@mui/icons-material';
+import { useState } from 'react';
 
 export default function AdminArticleVideo() {
     const [articles, setArticles] = useState([]);
     const [videos, setVideos] = useState([]);
+    const [relations, setRelations] = useState([]);
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [selectedVideo, setSelectedVideo] = useState(null);
 
     const handleAddRelation = () => {
-        // Logique pour ajouter la relation
+        if (selectedArticle && selectedVideo) {
+            setRelations([...relations, {
+                article: selectedArticle,
+                video: selectedVideo
+            }]);
+            setSelectedArticle(null);
+            setSelectedVideo(null);
+        }
+    };
+
+    const handleRemoveRelation = (id) => {
+        setRelations(relations.filter(rel => rel.article._id !== id));
     };
 
     return (
         <Box>
-            <Typography variant="h6" sx={{ mb: 3 }}>
-                Relier des articles à des vidéos
+            <Typography variant="h5" gutterBottom>
+                Relations Articles-Vidéos
             </Typography>
 
-            <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
+            <Box sx={{ mb: 4, display: 'flex', gap: 2 }}>
                 <Autocomplete
                     options={articles}
                     getOptionLabel={(option) => option.title}
-                    sx={{ width: 300 }}
+                    sx={{ flex: 1 }}
                     renderInput={(params) => (
                         <TextField {...params} label="Sélectionner un article" />
                     )}
+                    value={selectedArticle}
                     onChange={(e, value) => setSelectedArticle(value)}
                 />
 
                 <Autocomplete
                     options={videos}
                     getOptionLabel={(option) => option.title}
-                    sx={{ width: 300 }}
+                    sx={{ flex: 1 }}
                     renderInput={(params) => (
                         <TextField {...params} label="Sélectionner une vidéo" />
                     )}
+                    value={selectedVideo}
                     onChange={(e, value) => setSelectedVideo(value)}
                 />
 
@@ -53,36 +71,39 @@ export default function AdminArticleVideo() {
                     variant="contained"
                     onClick={handleAddRelation}
                     disabled={!selectedArticle || !selectedVideo}
+                    sx={{ minWidth: 120 }}
                 >
-                    Relier
+                    Ajouter
                 </Button>
             </Box>
 
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Article</TableCell>
-                        <TableCell>Vidéo associée</TableCell>
-                        <TableCell>Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {articles.map((article) => (
-                        <TableRow key={article._id}>
-                            <TableCell>{article.title}</TableCell>
-                            <TableCell>
-                                {article.relatedVideo?.title || 'Aucune'}
-                            </TableCell>
-                            <TableCell>
-                                <Button size="small">Modifier</Button>
-                                <Button size="small" color="error">
-                                    Supprimer
-                                </Button>
-                            </TableCell>
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Article</TableCell>
+                            <TableCell>Vidéo associée</TableCell>
+                            <TableCell>Actions</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHead>
+                    <TableBody>
+                        {relations.map((relation) => (
+                            <TableRow key={relation.article._id}>
+                                <TableCell>{relation.article.title}</TableCell>
+                                <TableCell>{relation.video.title}</TableCell>
+                                <TableCell>
+                                    <IconButton
+                                        onClick={() => handleRemoveRelation(relation.article._id)}
+                                        color="error"
+                                    >
+                                        <Delete />
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </Box>
     );
 }

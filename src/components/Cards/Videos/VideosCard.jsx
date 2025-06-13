@@ -59,8 +59,8 @@ function VideosCard({ video, onClick }) {
             <CardMedia
                 component="img"
                 height={isMobile ? 160 : 180}
-                image={video.thumbnail}
-                alt={video.title}
+                image={video?.thumbnail}
+                alt={video?.title}
                 sx={{
                   objectFit: 'cover',
                   backgroundColor: grey[200]
@@ -87,7 +87,7 @@ function VideosCard({ video, onClick }) {
                     }}
                 >
                   <Person fontSize="inherit" />
-                  {video.author || "Auteur inconnu"}
+                  {video?.author || "Auteur inconnu"}
                 </Typography>
 
                 <Typography
@@ -100,7 +100,7 @@ function VideosCard({ video, onClick }) {
                     }}
                 >
                   <CalendarToday fontSize="inherit" />
-                  {video.createdAt ? formatDate(video.createdAt) : "Date inconnue"}
+                  {video?.createdAt ? formatDate(video.createdAt) : "Date inconnue"}
                 </Typography>
               </Stack>
 
@@ -118,7 +118,7 @@ function VideosCard({ video, onClick }) {
                     textOverflow: 'ellipsis'
                   }}
               >
-                {video.title}
+                {video?.title}
               </Typography>
 
               {/* Description */}
@@ -134,7 +134,7 @@ function VideosCard({ video, onClick }) {
                     textOverflow: 'ellipsis'
                   }}
               >
-                {video.description || "Pas de description disponible."}
+                {video?.description || "Pas de description disponible."}
               </Typography>
 
               {/* Categories */}

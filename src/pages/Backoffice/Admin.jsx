@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Tab, Tabs, Box } from '@mui/material';
 import AdminArticles from "./AdminArticles.jsx";
-import AdminVideos from "./AdminVideos.jsx";
+import {AdminVideos} from "./AdminVideos.jsx";
 import AdminArticleVideo from "./AdminArticleVideo.jsx";
 import AdminCategory from "./AdminCategory.jsx";
 import AdminCategoryAssignment from "./AdminCategoryAssignment.jsx";

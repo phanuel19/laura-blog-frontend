@@ -8,11 +8,12 @@ import {
     Button,
 
     Box,
-   } from '@mui/material';
+   } from '@mui/material'
+
 import {video} from "../../services/VideoServices.js";
 
-export default function AdminVideoForm({ open, onClose, videoselected }) {
-    const [formData, setFormData] = useState(videoselected || {
+export default function AdminVideoForm({ open, onClose, selectedVid }) {
+    const [formData, setFormData] = useState(selectedVid ?? {
         title:'',
         description: '',
         thumbnail: '',
@@ -23,14 +24,14 @@ export default function AdminVideoForm({ open, onClose, videoselected }) {
 
 
     const handleSubmit = async () => {
-        await video.AddVideo(formData)
+        await video.UpdateVideo(selectedVid.id, formData);
         onClose();
     };
 
     return (
         <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
             <DialogTitle>
-                {videoselected ? 'Modifier la vidéo' : 'Ajouter une nouvelle vidéo'}
+                {selectedVid ? 'Modifier la vidéo' : 'Ajouter une nouvelle vidéo'}
             </DialogTitle>
             <DialogContent>
                 <Box sx={{ mt: 2 }}>

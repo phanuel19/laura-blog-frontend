@@ -1,218 +1,121 @@
-import React, {useEffect, useState} from 'react';
-import {
-    DataGrid,
-
-
-} from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { Edit, Delete, Add } from '@mui/icons-material';
 import {
     Button,
     Box,
-    IconButton,
     Dialog,
-    Typography,
     DialogTitle,
     DialogContent,
-    DialogActions,
-    LinearProgress,
-    Alert,
-    Paper
+    IconButton,
+    Tooltip, Typography
 } from '@mui/material';
-import {Add, Edit, Delete} from '@mui/icons-material';
-import {useNavigate} from 'react-router-dom';
-import {article} from '../../services/ArticleServices.js';
-import {teal} from '@mui/material/colors';
-
+import {useEffect, useState} from 'react';
+import AdminArticleForm from './AdminArticleForm';
+import {article} from "../../services/ArticleServices.js";
 
 export default function AdminArticles() {
     const [articles, setArticles] = useState([]);
+    const [openForm, setOpenForm] = useState(false);
+    const [selectedArticle, setSelectedArticle] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [selectedId, setSelectedId] = useState(null);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchArticles = async () => {
-            try {
-                setLoading(true);
-                const response = await article.GetArticles();
-                setArticles(response.datas);
-            } catch (error) {
-                setError("Erreur lors du chargement des articles");
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchArticles();
-    }, []);
-
-    const handleDelete = async () => {
-        try {
-            await article.deleteArticle(selectedId);
-            setArticles(articles.filter(article => article._id !== selectedId));
-            setDeleteDialogOpen(false);
-        } catch (error) {
-            setError("Erreur lors de la suppression");
-            console.error(error);
-        }
-    };
 
     const columns = [
+        { field: 'title', headerName: 'Titre', width: 250 },
         {
-            field: 'title',
-            headerName: 'Titre',
-            width: 250,
-            editable: true,
+            field: 'description',
+            headerName: 'Description',
+            width: 300,
             renderCell: (params) => (
-                <Box sx={{fontWeight: 500}}>
-                    {params.value}
-                </Box>
+                <Tooltip title={params?.value}>
+                    <span>{params?.value}...</span>
+                </Tooltip>
             )
         },
-        {
-            field: 'author',
-            headerName: 'Auteur',
-            width: 150,
-            editable: true
-        },
-        {
-            field: 'createdAt',
-            headerName: 'Date',
-            width: 150,
-            editable: false,
-            valueFormatter: (params) => new Date(params?.value).toLocaleDateString('fr-FR')
-        },
-        {
-            field: 'categories',
-            headerName: 'Catégories',
-            editable: true,
-            width: 200,
-            renderCell: (params) => (
-                <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 0.5}}>
-                    {params.value?.map((cat, index) => (
-                        <Box
-                            key={index}
-                            sx={{
-                                px: 1,
-                                py: 0.5,
-                                bgcolor: teal[50],
-                                color: teal[700],
-                                borderRadius: 1,
-                                fontSize: '0.75rem'
-                            }}
-                        >
-                            {cat}
-                        </Box>
-                    ))}
-                </Box>
-            )
-        },
+        { field: 'author', headerName: 'Auteur', width: 150 },
         {
             field: 'actions',
-            headerName: 'Actions',
-            width: 150,
-            sortable: false,
-            filterable: false,
-            renderCell: (params) => (
-                <Box>
-                    <IconButton
-                        onClick={() => {
-                            console.log(params.row)}}
-                        size="small"
-                        sx={{color: teal[700]}}
-                    >
-                        <Edit fontSize="small"/>
-                    </IconButton>
-                    <IconButton
-                        onClick={() => {
-                            setSelectedId(params.row.id);
-                            setDeleteDialogOpen(true);
-                        }}
-                        size="small"
-                        color="error"
-                    >
-                        <Delete fontSize="small"/>
-                    </IconButton>
-                </Box>
-            ),
+            type: 'actions',
+            width: 100,
+            getActions: (params) => [
+                <IconButton
+                    onClick={() => {
+                        setSelectedArticle(params.row);
+                        setOpenForm(true);
+                    }}
+                    color="primary"
+                >
+                    <Edit />
+                </IconButton>,
+                <IconButton
+                    onClick={() => handleDelete(params.id)}
+                    color="error"
+                >
+                    <Delete />
+                </IconButton>,
+            ],
         },
     ];
 
+    const handleDelete = async (id) => {
+        // Logique de suppression
+    };
+    const fetchArticles = async () => {
+        const results =  await article.GetArticles();
+        setLoading(false);
+        setArticles(results.datas);
+    }
+    useEffect(() => {
+        fetchArticles()
+    },[])
     return (
-        <Paper elevation={0} sx={{p: 3, borderRadius: 2}}>
-            <Box sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                mb: 3
-            }}>
-                <Typography variant="h5" sx={{fontWeight: 600}}>
-                    Gestion des articles
-                </Typography>
+        <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                <Typography variant="h5">Gestion des articles</Typography>
                 <Button
-                    variant="contained"
-                    startIcon={<Add/>}
-                    onClick={() => navigate('/admin/articles/new')}
-                    sx={{
-                        backgroundColor: teal[700],
-                        '&:hover': {backgroundColor: teal[800]}
+                    startIcon={<Add />}
+                    onClick={() => {
+                        setSelectedArticle(null);
+                        setOpenForm(true);
                     }}
+                    variant="contained"
                 >
                     Nouvel article
                 </Button>
             </Box>
 
-            {error && (
-                <Alert severity="error" sx={{mb: 2}}>
-                    {error}
-                </Alert>
-            )}
-
-            <Box sx={{height: 600, width: '100%'}}>
+            <Box sx={{ flexGrow: 1 }}>
                 <DataGrid
                     rows={articles}
                     columns={columns}
                     loading={loading}
+                    components={{ Toolbar: GridToolbar }}
+                    componentsProps={{
+                        toolbar: {
+                            showQuickFilter: true,
+                            quickFilterProps: { debounceMs: 500 },
+                        },
+                    }}
                     pageSize={10}
-                    rowHeight={30}
-                    editMode={"row"}
                     rowsPerPageOptions={[10, 25, 50]}
                     getRowId={(row) => row.id}
-                    components={{
-
-                        LoadingOverlay: LinearProgress
-                    }}
-                    sx={{
-                        '& .MuiDataGrid-columnHeaders': {
-                            backgroundColor: teal[50],
-                        },
-                        '& .MuiDataGrid-cell': {
-                            borderBottom: `1px solid ${teal[100]}`,
-                        },
-                    }}
                 />
             </Box>
 
-            <Dialog
-                open={deleteDialogOpen}
-                onClose={() => setDeleteDialogOpen(false)}
-            >
-                <DialogTitle>Confirmer la suppression</DialogTitle>
+            <Dialog open={openForm} onClose={() => setOpenForm(false)} maxWidth="md" fullWidth>
+                <DialogTitle>
+                    {selectedArticle ? 'Modifier l\'article' : 'Créer un nouvel article'}
+                </DialogTitle>
                 <DialogContent>
-                    Êtes-vous sûr de vouloir supprimer cet article ?
+                    <AdminArticleForm
+                        article={selectedArticle}
+                        onClose={() => setOpenForm(false)}
+                        onSubmit={(data) => {
+                            // Logique de soumission
+                            setOpenForm(false);
+                        }}
+                    />
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setDeleteDialogOpen(false)}>Annuler</Button>
-                    <Button
-                        onClick={handleDelete}
-                        color="error"
-                        variant="contained"
-                    >
-                        Supprimer
-                    </Button>
-                </DialogActions>
             </Dialog>
-        </Paper>
+        </Box>
     );
 }

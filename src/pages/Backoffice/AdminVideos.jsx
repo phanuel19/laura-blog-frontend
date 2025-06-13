@@ -1,16 +1,19 @@
 import {DataGrid, GridActionsCellItem} from '@mui/x-data-grid';
 import {Edit, Delete, Add} from '@mui/icons-material';
-import {Button, Box, Alert} from '@mui/material';
+import {Button, Box, Alert, Tooltip} from '@mui/material';
 import React, {useEffect, useState} from 'react';
 import AdminVideoForm from './AdminVideoForm';
 import {video} from "../../services/VideoServices.js";
 
-export default function AdminVideos() {
+export function AdminVideos() {
     const [videos, setVideos] = useState([]);
     const [openForm, setOpenForm] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedVideo, setSelectedVideo] = useState(null);
+
+
+
     useEffect(() => {
         const fetchVideos = async () => {
             try {
@@ -27,10 +30,12 @@ export default function AdminVideos() {
         fetchVideos();
     }, []);
     const columns = [
-        {field: 'title', headerName: 'Titre', width: 200 , editable: true},
+        {field: 'id', headerName: 'id', width:0, editable: false },
+        {field: 'title', headerName: 'Titre', width: 200, editable: true},
         {field: 'description', headerName: 'Description', width: 300, editable: true},
-        {field: 'url', headerName: 'Image', width: 200, editable: false },
-        {field: 'createdAt', headerName: 'Date de Création', width: 200, editable: false },
+        {field: 'url', headerName: 'Image', width: 200, editable: false},
+        {field: 'author', headerName: 'Auteur', width: 200, editable: true},
+        {field: 'createdAt', headerName: 'Date de Création', width: 200, editable: false,  },
         {field: 'categories', headerName: 'Catégories', width: 200, editable: true},
         {
             field: 'actions',
@@ -42,8 +47,9 @@ export default function AdminVideos() {
                     icon={<Edit/>}
                     label="Modifier"
                     onClick={() => {
-                        setSelectedVideo(params.row);                        log
+                        setSelectedVideo(params.row);
                         setOpenForm(true);
+
                     }}
                 />,
                 <GridActionsCellItem
@@ -84,11 +90,11 @@ export default function AdminVideos() {
 
             />
 
-            <AdminVideoForm
+            {openForm ?? <AdminVideoForm
                 open={openForm}
                 onClose={() => setOpenForm(false)}
-                videoselected={selectedVideo}
-            />
+                selectedVid={selectedVideo}
+            />}
         </Box>
     );
 }
