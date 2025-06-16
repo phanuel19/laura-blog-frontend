@@ -40,6 +40,14 @@ export default function VideoView({
         }
 
     }
+    function isYouTubeUrl(url) {
+        return url.includes('youtube.com') || url.includes('youtu.be');
+    }
+    function getYouTubeId(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    }
     useEffect(() => {
         setRelatedVideos(getRandomVideos());
     }, [video]);
@@ -52,15 +60,38 @@ export default function VideoView({
                 {/* Main content */}
                 <div className="lg:flex-1">
                     {/* Video player */}
+
                     <div className="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-lg">
-                        <video
-                            controls
-                            autoPlay
-                            className="w-full h-full object-contain"
-                            src={video.url}
-                            poster={video.thumbnail}
-                            title={video.title}
-                        />
+                        {isYouTubeUrl(video.url) ? (
+                            <iframe
+                                className="w-full h-full youtube-embed"
+                                src={`https://www.youtube.com/embed/${getYouTubeId(video.url)}?${new URLSearchParams({
+                                    autoplay: 1,         
+                                    rel: 0,               
+                                    modestbranding: 1,    
+                                    controls: 1,          
+                                    disablekb: 0,          
+                                    fs: 1,                
+                                    iv_load_policy: 3,     
+                                    loop: 0,              
+                                    color: 'white',       
+                                }).toString()}`}
+                                title={video.title}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                                loading="lazy"
+                            />
+                        ) : (
+                            <video
+                                controls
+                                autoPlay
+                                className="w-full h-full object-contain"
+                                src={video.url}
+                                poster={video.thumbnail}
+                                title={video.title}
+                            />
+                        )}
                     </div>
 
                     {/* Video info */}
@@ -177,7 +208,7 @@ export default function VideoView({
                     {/* </div> */}
           </div>
 
-                    {/* Sidebar - Related videos */}
+                    {/* Sidebar - Related videos
                     <div className="lg:w-80 space-y-4">
                         <div className="flex items-center justify-between">
                             <button
@@ -220,7 +251,7 @@ export default function VideoView({
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </div>*/}
                 </div>
             </div>
             );

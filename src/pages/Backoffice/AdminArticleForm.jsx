@@ -8,9 +8,10 @@ import {
     InputLabel,
     Select,
     MenuItem,
-    FormHelperText
+    FormHelperText, styled
 } from '@mui/material';
 import { useState } from 'react';
+import {CloudUploadIcon} from "lucide-react";
 
 export default function AdminArticleForm({ article, onClose, onSubmit }) {
     const [formData, setFormData] = useState(article || {
@@ -19,10 +20,20 @@ export default function AdminArticleForm({ article, onClose, onSubmit }) {
         content: '',
         categories: [],
         author: '',
-        status: 'draft'
+
     });
     const [allCategories, setAllCategories] = useState([]);
-
+    const VisuallyHiddenInput = styled('input')({
+        clip: 'rect(0 0 0 0)',
+        clipPath: 'inset(50%)',
+        height: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        whiteSpace: 'nowrap',
+        width: 1,
+    });
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit(formData);
@@ -90,20 +101,21 @@ export default function AdminArticleForm({ article, onClose, onSubmit }) {
                     onChange={(e) => setFormData({...formData, author: e.target.value})}
                     required
                 />
+                <Button
+                    component="label"
+                    role={undefined}
+                    variant="contained"
+                    tabIndex={-1}
+                    startIcon={<CloudUploadIcon />}
+                >
+                    Upload files
+                    <VisuallyHiddenInput
+                        type="file"
+                        onChange={(event) => console.log(event.target.files)}
+                        multiple
+                    />
 
-                <FormControl fullWidth>
-                    <InputLabel>Statut *</InputLabel>
-                    <Select
-                        value={formData.status}
-                        label="Statut"
-                        onChange={(e) => setFormData({...formData, status: e.target.value})}
-                    >
-                        <MenuItem value="draft">Brouillon</MenuItem>
-                        <MenuItem value="published">Publié</MenuItem>
-                        <MenuItem value="archived">Archivé</MenuItem>
-                    </Select>
-                    <FormHelperText>Choisir le statut de l'article</FormHelperText>
-                </FormControl>
+                </Button>
             </Box>
 
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>

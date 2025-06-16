@@ -26,3 +26,13 @@ body{
   box-sizing:border-box;  
   
 }
+.youtube-embed {
+  /* Style personnalisé */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Masquer certains éléments YouTube */
+.youtube-embed .ytp-chrome-top {
+  display: none !important;
+}
